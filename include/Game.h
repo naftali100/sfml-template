@@ -1,6 +1,10 @@
 #pragma once
+#ifndef GAME_H
+#define GAME_H
 
 #include <SFML/Graphics.hpp>
+
+#include "StateManager.h"
 
 class Game {
 public:
@@ -13,9 +17,10 @@ public:
     void draw();
 
 private:
-    void handlePlayerInput(sf::Keyboard::Key key, bool isPressed);
     sf::RenderWindow m_win;
     sf::Font m_font;
     std::map<sf::Keyboard::Key, bool> pressedKeys;
-    // StateManager m_stateManager;
+    StateManager m_stateManager;
 };
+
+#endif

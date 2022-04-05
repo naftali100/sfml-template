@@ -8,14 +8,19 @@
 #include <vector>
 
 #include "Config.h"
+#include "DemoState.h"
 #include "SfmlUtil.h"
+#include "StateManager.h"
 
-Game::Game() : m_win(sf::VideoMode(WIN_SIZE_X, WIN_SIZE_Y), "World") {
+Game::Game() : m_win(sf::VideoMode(WIN_SIZE_X, WIN_SIZE_Y), "World"), m_stateManager(m_win) {
     // FontHolder::Instance().load(Fonts::Main, FONT_PATH);
 }
 
 void Game::run() {
     LOGV << "game::run - start";
+
+    // initial state
+    m_stateManager.pushState(std::make_unique<DemoState>(m_stateManager));
 
     m_win.setFramerateLimit(FPS);
     // m_win.setKeyRepeatEnabled(false);
@@ -26,7 +31,7 @@ void Game::run() {
     // m_stateManager.pushState(std::make_unique<ColState>(m_stateManager));
 
     sf::Clock clock;
-    while (m_win.isOpen()) {
+    while (m_stateManager.isRunning()) {
         sf::Time deltaTime = clock.restart();
         processEvents();
         update(deltaTime);
@@ -40,7 +45,7 @@ void Game::run() {
 void Game::processEvents() {
     sf::Event event;
     while (m_win.pollEvent(event)) {
-        // m_stateManager.handleEvent(event);
+        m_stateManager.handleEvent(event);
 
         switch (event.type) {
             case sf::Event::Resized:
@@ -57,7 +62,7 @@ void Game::processEvents() {
 }
 
 void Game::update(sf::Time deltaTime) {
-    // m_stateManager.update(deltaTime);
+    m_stateManager.update(deltaTime);
 }
 
 void Game::showStatWin() {
@@ -71,7 +76,7 @@ void Game::showStatWin() {
 void Game::draw() {
     LOGV << "game render - start";
     m_win.clear();
-    // m_stateManager.draw(m_win);
+    m_stateManager.draw(m_win);
     // ImGui::SFML::Render(m_win);
     m_win.display();
     LOGV << "game render - finish";

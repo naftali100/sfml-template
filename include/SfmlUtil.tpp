@@ -129,7 +129,7 @@ namespace plog {
 template <PrintableShape S>
 Record& operator<<(Record& record, const S& s) {
     record << s.getPosition().x << ", " << s.getPosition().y << " : " << s.getSize().x << ", " << s.getSize().y
-           << " (low r corner " << sf::util::Global::getBottomRight(s) << ")";
+           << " (low r corner " << sf::util::getGlobalBottomRight(s) << ")";
     return record;
 }
 

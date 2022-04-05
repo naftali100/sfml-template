@@ -8,7 +8,7 @@
 int main() {
     // init plog
     plog::ColorConsoleAppender<plog::TxtFormatter> appiarer;
-    plog::init(plog::debug, &appiarer);
+    plog::init(plog::info, &appiarer);
 
     Game game;
     game.run();
