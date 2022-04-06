@@ -142,7 +142,7 @@ Record& operator<<(Record& record, const V& v) {
 template <Iterateble I>
 Record& operator<<(Record& record, const I& i) {
     for (const auto& item : i) {
-        if (item != *(i.begin().base()))
+        if (item != *i.begin())
             record << ", ";
         record << item;
     }

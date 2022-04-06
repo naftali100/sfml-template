@@ -24,7 +24,8 @@ public:
 
     // StatePtr createState(States::ID);
 
-    // sf::RenderWindow* m_win;  // tmp
+    sf::RenderWindow& getWin();
+
 private:
     sf::RenderWindow& m_win;
     std::stack<StatePtr> m_states;
