@@ -1,2 +1,2 @@
-# cmake-template
-easy template to get started with cmake project
+# sfml-template
+sfml template with a lot of asuuf built in for easy and quick start 
