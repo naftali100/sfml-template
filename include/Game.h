@@ -10,6 +10,7 @@ class Game {
 public:
     Game();
     void run();
+    void loadResources();
 
     void processEvents();
     void update(sf::Time elapsedTime);

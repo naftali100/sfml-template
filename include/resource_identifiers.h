@@ -2,8 +2,8 @@
 #ifndef resources_identifiers_h
 #define resources_identifiers_h
 
-#include "consts.h"
 #include "resource_holder.h"
+#include "Assets.h"
 
 // Forward declaration of SFML classes
 namespace sf

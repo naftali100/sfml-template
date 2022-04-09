@@ -13,10 +13,12 @@ public:
 
     void pushState(StatePtr, bool = false);
     void popState();
+
     void handleEvent(const sf::Event&);
     void update(const sf::Time& td);
     void draw(sf::RenderTarget&);
 
+    void stop();
     bool isRunning() const;
 
     // template <typename S>

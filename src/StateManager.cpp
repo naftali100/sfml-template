@@ -2,21 +2,12 @@
 
 #include <plog/Log.h>
 
-// #include "state/collisions_state.h"
 // #include "state/demo_state.h"
-// #include "state/demo_state2.h"
-// #include "state/gui_state.h"
-// #include "state/resourcess_state.h"
 
 StateManager::StateManager(sf::RenderWindow& win) : m_win(win) {
     LOGV << "state manager constructor - start";
     // registerState<DemoState>(States::Main);
-    // registerState<Demo2>(States::Demo2);
-    // registerState<ResourcesState>(States::Resources);
-    // registerState<ColState>(States::Collision);
-    // registerState<GuiState>(States::Gui);
 
-    // TextureHolder::Instance().load(Textures::Player, "textures/player.png");
     LOGV << "state manager constructor - finish";
 }
 
@@ -84,6 +75,10 @@ void StateManager::draw(sf::RenderTarget& win) {
     else {
         LOGD << "empty states stack";
     }
+}
+
+void StateManager::stop(){
+    m_states = {};
 }
 
 bool StateManager::isRunning() const {
