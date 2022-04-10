@@ -26,6 +26,9 @@
 // MJSilk2@gmail.com
 //
 //////////////////////////////////////////////////////////////////////////////
+#pragma once
+#ifndef SFMLUTIL_H
+#define SFMLUTIL_H
 
 #include <SFML/Graphics.hpp>
 #include <exception>
@@ -115,3 +118,5 @@ namespace plog {
 }  // namespace plog
 
 #include "SfmlUtil.tpp"
+
+#endif

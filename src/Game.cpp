@@ -2,8 +2,8 @@
 
 #include <plog/Log.h>
 
-#include <SFML/System/Clock.hpp>
-#include <SFML/Window/Event.hpp>
+#include <SFML/Audio.hpp>
+#include <SFML/Graphics.hpp>
 #include <vector>
 
 #include "Config.h"
@@ -15,9 +15,9 @@
 Game::Game() : m_win(sf::VideoMode(WIN_SIZE_X, WIN_SIZE_Y), "World"), m_stateManager(m_win) {}
 
 void Game::loadResources() {
-    TextureHolder::Instance().load(Textures::Player, "texutes/player.png");
+    TextureHolder::Instance().load(Textures::Player, "textures/player.png");
     FontHolder::Instance().load(Fonts::Main, FONT_PATH);
-    SoundBufferHolder::Instance().load(SoundEffect::Main, "music/background.oog");
+    SoundBufferHolder::Instance().load(SoundEffect::Main, "music/background.ogg");
 }
 
 void Game::run() {
@@ -57,6 +57,12 @@ void Game::processEvents() {
                 }
             case sf::Event::Closed:
                 m_win.close();
+                break;
+            case sf::Event::LostFocus:
+                m_stateManager.pause();
+                break;
+            case sf::Event::GainedFocus:
+                m_stateManager.resume();
                 break;
         }
     }

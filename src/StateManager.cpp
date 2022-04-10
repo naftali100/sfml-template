@@ -24,6 +24,9 @@ void StateManager::popState() {
 }
 
 void StateManager::handleEvent(const sf::Event& e) {
+    if (m_paused)
+        return;
+
     if (!m_states.empty()) {
         m_states.top()->handleEvent(e);
     }
@@ -59,6 +62,8 @@ void StateManager::update(const sf::Time& td) {
     // }
 
     // ImGui::End();
+    if (m_paused)
+        return;
 
     if (!m_states.empty()) {
         m_states.top()->update(td);
@@ -69,6 +74,9 @@ void StateManager::update(const sf::Time& td) {
 }
 
 void StateManager::draw(sf::RenderTarget& win) {
+    if (m_paused)
+        return;
+
     if (!m_states.empty()) {
         m_states.top()->draw(win);
     }
@@ -77,7 +85,15 @@ void StateManager::draw(sf::RenderTarget& win) {
     }
 }
 
-void StateManager::stop(){
+void StateManager::pause() {
+    m_paused = true;
+};
+
+void StateManager::resume() {
+    m_paused = false;
+};
+
+void StateManager::stop() {
     m_states = {};
 }
 

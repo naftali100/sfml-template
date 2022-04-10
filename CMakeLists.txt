@@ -22,7 +22,7 @@ find_package (SFML 2.5 COMPONENTS graphics audio REQUIRED)
 if( WIN32 ) 
     # sfml-main - is windows only 
     set_target_properties (sfml-main sfml-system sfml-window sfml-graphics sfml-audio sfml-network PROPERTIES MAP_IMPORTED_CONFIG_RELWITHDEBINFO RELEASE)
-    target_link_libraries (${PROJECT_NAME}sfml-graphics sfml-audio sfml-main)
+    target_link_libraries (${PROJECT_NAME} sfml-graphics sfml-audio sfml-main)
 else()
     set_target_properties (sfml-system sfml-window sfml-graphics sfml-audio sfml-network PROPERTIES MAP_IMPORTED_CONFIG_RELWITHDEBINFO RELEASE)
     target_link_libraries (${PROJECT_NAME} sfml-graphics sfml-audio)

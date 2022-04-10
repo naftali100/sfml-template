@@ -26,7 +26,7 @@
 // MJSilk2@gmail.com
 //
 //////////////////////////////////////////////////////////////////////////////
-
+#pragma once
 #ifndef PLINTH_SFML_COLORS_HPP
 #define PLINTH_SFML_COLORS_HPP
 

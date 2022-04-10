@@ -28,9 +28,13 @@ public:
 
     sf::RenderWindow& getWin();
 
+    void pause();
+    void resume();
+
 private:
     sf::RenderWindow& m_win;
     std::stack<StatePtr> m_states;
+    bool m_paused = false;
     // std::map<States::ID, std::function<StatePtr()>> m_factories;
 };
 
