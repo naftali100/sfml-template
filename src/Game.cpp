@@ -7,7 +7,8 @@
 #include <vector>
 
 #include "Config.h"
-#include "DemoState.h"
+#include "States/ParticlesState.h"
+#include "States/DemoState.h"
 #include "SfmlUtil.h"
 #include "StateManager.h"
 #include "resource_identifiers.h"
@@ -57,6 +58,7 @@ void Game::processEvents() {
                 }
             case sf::Event::Closed:
                 m_win.close();
+                m_stateManager.stop();
                 break;
             case sf::Event::LostFocus:
                 m_stateManager.pause();

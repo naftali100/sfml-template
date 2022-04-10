@@ -1,12 +1,11 @@
-#include <sstream>
+#include "ParticleSystem.h"
 
-#include "Particle.h"
+#include <sstream>
 
 ParticleSystem::ParticleSystem(int width, int height) {
     m_transparent = sf::Color(0, 0, 0, 0);
-    m_image.create(width, height, m_transparent);
-    m_texture.loadFromImage(m_image);
-    m_sprite = sf::Sprite(m_texture);
+    m_texture.create(width, height);
+    m_sprite = sf::Sprite(m_texture.getTexture());
     m_position.x = 0.5f * width;
     m_position.y = 0.5f * height;
     m_particleSpeed = 20.0f;
@@ -19,56 +18,23 @@ ParticleSystem::~ParticleSystem() {
     for (ParticleIterator it = m_particles.begin(); it != m_particles.end(); it++) { delete *it; }
 }
 
-void ParticleSystem::fuel(int particles) {
-    float angle;
-    Particle* particle;
-    for (int i = 0; i < particles; i++) {
-        particle = new Particle();
-        particle->pos.x = m_position.x;
-        particle->pos.y = m_position.y;
-
-        switch (m_shape) {
-            case Shape::CIRCLE:
-                angle = m_randomizer.rnd(0.0f, 6.2832f);
-                particle->vel.x = m_randomizer.rnd(0.0f, cos(angle));
-                particle->vel.y = m_randomizer.rnd(0.0f, sin(angle));
-                break;
-            case Shape::SQUARE:
-                particle->vel.x = m_randomizer.rnd(-1.0f, 1.0f);
-                particle->vel.y = m_randomizer.rnd(-1.0f, 1.0f);
-                break;
-            default:
-                particle->vel.x = 0.5f;  // Easily detected
-                particle->vel.y = 0.5f;  // Easily detected
-        }
-
-        if (particle->vel.x == 0.0f && particle->vel.y == 0.0f) {
-            delete particle;
-            continue;
-        }
-        particle->color.r = m_randomizer.rnd(0, 255);
-        particle->color.g = m_randomizer.rnd(0, 255);
-        particle->color.b = m_randomizer.rnd(0, 255);
-        particle->color.a = 255;
-        m_particles.push_back(particle);
-    }
-}
-
 void ParticleSystem::update() {
     float time = m_clock.restart().asSeconds();
 
     for (ParticleIterator it = m_particles.begin(); it != m_particles.end(); it++) {
-        (*it)->vel.x += m_gravity.x * time;
-        (*it)->vel.y += m_gravity.y * time;
+        (*it)->m_vel.x += m_gravity.x * time;
+        (*it)->m_vel.y += m_gravity.y * time;
 
-        (*it)->pos.x += (*it)->vel.x * time * m_particleSpeed;
-        (*it)->pos.y += (*it)->vel.y * time * m_particleSpeed;
+        (*it)->m_pos.x += (*it)->m_vel.x * time * m_particleSpeed;
+        (*it)->m_pos.y += (*it)->m_vel.y * time * m_particleSpeed;
 
         if (m_dissolve)
-            (*it)->color.a -= m_dissolutionRate;
+            (*it)->opacity -= m_dissolutionRate;
 
-        if ((*it)->pos.x > m_image.getSize().x || (*it)->pos.x < 0 || (*it)->pos.y > m_image.getSize().y ||
-            (*it)->pos.y < 0 || (*it)->color.a < 10) {
+        (*it)->update();
+
+        if ((*it)->m_pos.x > m_texture.getSize().x || (*it)->m_pos.x < 0 || (*it)->m_pos.y > m_texture.getSize().y ||
+            (*it)->m_pos.y < 0 || (*it)->opacity < 10) {
             delete (*it);
             it = m_particles.erase(it);
             if (it == m_particles.end())
@@ -78,16 +44,9 @@ void ParticleSystem::update() {
 }
 
 void ParticleSystem::render() {
-    for (ParticleIterator it = m_particles.begin(); it != m_particles.end(); it++) {
-        m_image.setPixel((int)(*it)->pos.x, (int)(*it)->pos.y, (*it)->color);
-    }
-    m_texture.update(m_image);
-}
-
-void ParticleSystem::remove() {
-    for (ParticleIterator it = m_particles.begin(); it != m_particles.end(); it++) {
-        m_image.setPixel((int)(*it)->pos.x, (int)(*it)->pos.y, m_transparent);
-    }
+    m_texture.clear();
+    for (ParticleIterator it = m_particles.begin(); it != m_particles.end(); it++) { (*it)->draw(m_texture); }
+    m_texture.display();
 }
 
 std::string ParticleSystem::getNumberOfParticlesString() {

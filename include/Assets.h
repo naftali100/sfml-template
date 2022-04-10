@@ -17,6 +17,7 @@ enum ID
     Resources,
     Collision,
     Gui,
+    Particles,
     StatesCount
 };
 }  // namespace States
