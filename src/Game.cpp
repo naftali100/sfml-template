@@ -9,6 +9,7 @@
 #include "Config.h"
 #include "States/ParticlesState.h"
 #include "States/DemoState.h"
+#include "States/AnimationState.h"
 #include "SfmlUtil.h"
 #include "StateManager.h"
 #include "resource_identifiers.h"
@@ -17,6 +18,8 @@ Game::Game() : m_win(sf::VideoMode(WIN_SIZE_X, WIN_SIZE_Y), "World"), m_stateMan
 
 void Game::loadResources() {
     TextureHolder::Instance().load(Textures::Player, "textures/player.png");
+    TextureHolder::Instance().load(Textures::FireAnimationSheet, "textures/fireSheet.png");
+    TextureHolder::Instance().load(Textures::Run, "textures/run.png");
     FontHolder::Instance().load(Fonts::Main, FONT_PATH);
     SoundBufferHolder::Instance().load(SoundEffect::Main, "music/background.ogg");
 }
@@ -30,7 +33,7 @@ void Game::run() {
     // m_win.setKeyRepeatEnabled(false);
 
     // initial state
-    m_stateManager.pushState(std::make_unique<DemoState>(m_stateManager));
+    m_stateManager.pushState(std::make_unique<AnimationState>(m_stateManager));
 
     sf::Clock clock;
     while (m_stateManager.isRunning()) {

@@ -18,6 +18,7 @@ enum ID
     Collision,
     Gui,
     Particles,
+    Animation,
     StatesCount
 };
 }  // namespace States
@@ -25,7 +26,9 @@ enum ID
 namespace Textures {
 enum ID
 {
-    Player
+    Player,
+    FireAnimationSheet,
+    Run
 };  // add textures here
 }  // namespace Textures
 
