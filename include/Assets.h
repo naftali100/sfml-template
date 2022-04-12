@@ -40,7 +40,8 @@ enum ID
 namespace Fonts {
 enum ID
 {
-    Main
+    Main,
+    Test
 };
 }  // namespace Fonts
 

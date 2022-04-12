@@ -34,7 +34,7 @@ public:
         m_ps.setDissolve(true);
         m_ps.setDissolutionRate(1);
         m_ps.setShape(Shape::SQUARE);
-        m_ps.setParticleSpeed(200.0f);
+        m_ps.setParticleSpeed(100.0f);
         // m_ps.setGravity( 1.0f, 1.0f );
     };
 
@@ -44,7 +44,7 @@ public:
         }
     }
     virtual void update(const sf::Time&) override {
-        m_ps.fuel<myParticle>(200);
+        m_ps.fuel<myParticle>(100);
 
         m_ps.update();
         m_ps.render();
