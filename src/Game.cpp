@@ -21,6 +21,7 @@ void Game::loadResources() {
     TextureHolder::Instance().load(Textures::FireAnimationSheet, "textures/fireSheet.png");
     TextureHolder::Instance().load(Textures::Run, "textures/run.png");
     FontHolder::Instance().load(Fonts::Main, FONT_PATH);
+    FontHolder::Instance().load(Fonts::Test, "fonts/ttf/KlokanTechNotoSans-Regular.ttf");
     SoundBufferHolder::Instance().load(SoundEffect::Main, "music/background.ogg");
 }
 
