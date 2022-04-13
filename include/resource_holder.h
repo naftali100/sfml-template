@@ -27,7 +27,7 @@ public:
 private:
     ResourceHolder() = default;
     ResourceHolder(const ResourceHolder&) = default;
-    int operator=(int other) = delete;
+    ResourceHolder operator=(ResourceHolder other) = delete;
     void insertResource(Identifier id, std::unique_ptr<Resource> resource);
 
     std::map<Identifier, std::unique_ptr<Resource>> mResourceMap;

@@ -6,6 +6,7 @@
 #include "Log.h"
 #include "State.h"
 #include "StateManager.h"
+#include "Resouces.h"
 
 class AnimationState : public State {
 public:
@@ -35,7 +36,7 @@ public:
     }
 
 private:
-    mutable sf::Sprite m_sprite{TextureHolder::Instance().get(Textures::Run)};
+    mutable sf::Sprite m_sprite{Resources::getTexture(Textures::Run)};
     Animation animation{m_sprite};
 };
 

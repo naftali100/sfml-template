@@ -8,10 +8,10 @@
 #include "ParticleSystem.h"
 #include "SfmlUtil.h"
 #include "State.h"
-#include "resource_identifiers.h"
+#include "Resouces.h"
 
 struct myParticle : public Particle {
-    sf::Sprite sprite{TextureHolder::Instance().get(Textures::Player)};
+    sf::Sprite sprite{Resources::getTexture(Textures::Player)};
     void init() override {
         sprite.scale(0.1, 0.1);
         sprite.setPosition(m_pos);

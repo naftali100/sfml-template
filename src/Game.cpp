@@ -12,17 +12,17 @@
 #include "States/AnimationState.h"
 #include "SfmlUtil.h"
 #include "StateManager.h"
-#include "resource_identifiers.h"
+#include "Resouces.h"
 
 Game::Game() : m_win(sf::VideoMode(WIN_SIZE_X, WIN_SIZE_Y), "World"), m_stateManager(m_win) {}
 
 void Game::loadResources() {
-    TextureHolder::Instance().load(Textures::Player, "textures/player.png");
-    TextureHolder::Instance().load(Textures::FireAnimationSheet, "textures/fireSheet.png");
-    TextureHolder::Instance().load(Textures::Run, "textures/run.png");
-    FontHolder::Instance().load(Fonts::Main, FONT_PATH);
-    FontHolder::Instance().load(Fonts::Test, "fonts/ttf/KlokanTechNotoSans-Regular.ttf");
-    SoundBufferHolder::Instance().load(SoundEffect::Main, "music/background.ogg");
+    Resources::loadTexture(Textures::Player, "textures/player.png");
+    Resources::loadTexture(Textures::FireAnimationSheet, "textures/fireSheet.png");
+    Resources::loadTexture(Textures::Run, "textures/run.png");
+    Resources::loadFont(Fonts::Main, FONT_PATH);
+    Resources::loadFont(Fonts::Test, "fonts/ttf/KlokanTechNotoSans-Regular.ttf");
+    Resources::loadSoundBuffer(SoundEffect::Main, "music/background.ogg");
 }
 
 void Game::run() {
