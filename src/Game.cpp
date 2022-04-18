@@ -1,21 +1,25 @@
 #include "Game.h"
 
+#include <imgui-SFML.h>
+#include <imgui.h>
 #include <plog/Log.h>
 
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <vector>
-#include <imgui-SFML.h>
-#include <imgui.h>
 
+#include "Colors.h"
 #include "Config.h"
-#include "States/ParticlesState.h"
-#include "States/DemoState.h"
-#include "States/AnimationState.h"
+#include "Resources.h"
 #include "SfmlUtil.h"
 #include "StateManager.h"
-#include "Resouces.h"
-#include "Colors.h"
+#include "States/AnimationState.h"
+#include "States/Chat.h"
+#include "States/DemoState.h"
+#include "States/FontTest.h"
+#include "States/PaddleState.h"
+#include "States/ParticlesState.h"
+#include "States/XOState.h"
 
 Game::Game() : m_win(sf::VideoMode(WIN_SIZE_X, WIN_SIZE_Y), "World"), m_stateManager(m_win) {}
 
@@ -35,7 +39,7 @@ void Game::run() {
     bool ImGuiInit = ImGui::SFML::Init(m_win);
     ImGui::GetIO().Fonts->Clear();
     ImGui::GetIO().Fonts->AddFontFromFileTTF("fonts/ttf/KlokanTechNotoSans-Regular.ttf", 25.f);
-    ImGui::SFML::UpdateFontTexture();
+    bool i = ImGui::SFML::UpdateFontTexture();
 
     loadResources();
 
