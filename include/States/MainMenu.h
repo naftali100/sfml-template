@@ -44,7 +44,7 @@ public:
     virtual void draw(sf::RenderTarget&) const override{};
 
 private:
-    // when pushing new state, pause the current?
+    // when pushing new state, pause the current or replace it with new one?
     bool m_pauseOnPush = true;
 };
 
