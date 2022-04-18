@@ -16,13 +16,13 @@ private:
 - set the entry state in game class before the game loop.
 
 # what's in
-- states.
-- animation (using texture atlas).
-- easy resource management.
-- particle system (not the most efficient).
-- logging with plog, integrate sfml with plog.
-- sfml utilities.
-- imgui.
+- states
+- animation (using texture atlas)
+- easy resource management
+- particle system (not the most efficient)
+- logging with plog, integrate sfml with plog
+- sfml utilities
+- imgui
 
 # todo
 - quad tree.
