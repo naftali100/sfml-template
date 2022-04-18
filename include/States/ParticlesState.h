@@ -8,7 +8,7 @@
 #include "ParticleSystem.h"
 #include "SfmlUtil.h"
 #include "State.h"
-#include "Resouces.h"
+#include "Resources.h"
 
 struct myParticle : public Particle {
     sf::Sprite sprite{Resources::getTexture(Textures::Player)};

@@ -6,7 +6,7 @@
 #include "Log.h"
 #include "State.h"
 #include "StateManager.h"
-#include "Resouces.h"
+#include "Resources.h"
 
 class AnimationState : public State {
 public:
