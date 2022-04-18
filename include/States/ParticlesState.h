@@ -30,7 +30,7 @@ struct myParticle : public Particle {
 class ParticlesState : public State {
 public:
     using State::State;
-    ParticlesState(StateManager& sm) : State(sm) {
+    void init() override {
         m_ps.setDissolve(true);
         m_ps.setDissolutionRate(1);
         m_ps.setShape(Shape::SQUARE);
@@ -45,11 +45,10 @@ public:
     }
     virtual void update(const sf::Time&) override {
         m_ps.fuel<myParticle>(100);
-
         m_ps.update();
-        m_ps.render();
     }
     virtual void draw(sf::RenderTarget& win) const override {
+        m_ps.render();
         win.draw(m_ps.getSprite());
     }
 
