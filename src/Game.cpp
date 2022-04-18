@@ -49,7 +49,7 @@ void Game::run() {
     m_win.setKeyRepeatEnabled(false);
 
     // initial state
-    m_stateManager.pushState(std::make_unique<ImGuiTest>(m_stateManager));
+    m_stateManager.pushState(std::make_unique<XOState>(m_stateManager));
 
     sf::Clock clock;
     while (m_stateManager.isRunning()) {
