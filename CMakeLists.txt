@@ -17,15 +17,16 @@ if( WIN32 )
     configure_file ("C:/SFML/SFML-2.5.1/bin/openal32.dll" ${CMAKE_BINARY_DIR} COPYONLY)
 endif()
 
-find_package (SFML 2.5 COMPONENTS graphics audio REQUIRED)
+find_package(OpenGL REQUIRED)
+find_package (SFML 2.5 COMPONENTS graphics audio network REQUIRED)
 
 if( WIN32 ) 
     # sfml-main - is windows only 
     set_target_properties (sfml-main sfml-system sfml-window sfml-graphics sfml-audio sfml-network PROPERTIES MAP_IMPORTED_CONFIG_RELWITHDEBINFO RELEASE)
-    target_link_libraries (${PROJECT_NAME} sfml-graphics sfml-audio sfml-main)
+    target_link_libraries (${PROJECT_NAME} sfml-system sfml-graphics sfml-audio sfml-main sfml‑network)
 else()
     set_target_properties (sfml-system sfml-window sfml-graphics sfml-audio sfml-network PROPERTIES MAP_IMPORTED_CONFIG_RELWITHDEBINFO RELEASE)
-    target_link_libraries (${PROJECT_NAME} sfml-graphics sfml-audio)
+    target_link_libraries (${PROJECT_NAME} sfml-system sfml-graphics sfml-audio sfml-network)
 endif()
 
 set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++20")
