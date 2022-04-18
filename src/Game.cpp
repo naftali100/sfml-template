@@ -13,14 +13,7 @@
 #include "Resources.h"
 #include "SfmlUtil.h"
 #include "StateManager.h"
-#include "States/AnimationState.h"
-// #include "States/Chat.h"
-#include "States/DemoState.h"
-// #include "States/FontTest.h"
-// #include "States/PaddleState.h"
-#include "States/ParticlesState.h"
-#include "States/XOState.h"
-#include "States/imguiTest.h"
+#include "States/MainMenu.h"
 
 Game::Game() : m_win(sf::VideoMode(WIN_SIZE_X, WIN_SIZE_Y), "World"), m_stateManager(m_win) {}
 
@@ -33,23 +26,26 @@ void Game::loadResources() {
     Resources::loadSoundBuffer(SoundEffect::Main, "music/background.ogg");
 }
 
-void Game::run() {
-    LOGV << "game::run - start";
-
-    // init ImGui window
-    bool ImGuiInit = ImGui::SFML::Init(m_win);
+void Game::initImGui() {
+    // init ImGui
+    bool ImGuiInit = ImGui::SFML::Init(m_win, false);
     ImGui::GetIO().Fonts->Clear();
     // TODO: check imgui font range and load hebrew range 0x0590 - 0x05FF
     ImGui::GetIO().Fonts->AddFontFromFileTTF("fonts/ttf/KlokanTechNotoSans-Regular.ttf", 25.f);
     bool i = ImGui::SFML::UpdateFontTexture();
+}
+
+void Game::run() {
+    LOGV << "game::run - start";
 
     loadResources();
+    initImGui();
 
     m_win.setFramerateLimit(FPS);
     m_win.setKeyRepeatEnabled(false);
 
     // initial state
-    m_stateManager.pushState(std::make_unique<XOState>(m_stateManager));
+    m_stateManager.pushState(std::make_unique<MainMenu>(m_stateManager));
 
     sf::Clock clock;
     while (m_stateManager.isRunning()) {
@@ -94,22 +90,39 @@ void Game::processEvents() {
 
 void Game::update(sf::Time deltaTime) {
     ImGui::SFML::Update(m_win, deltaTime);
+    // create window with my title and flags
+    // MAYBE: check how to change debug window flags
+    // to use the defult Debug window of ImGui use imGui::End in the begining of your stat's update method 
+    // and ImGui::Begin in the end of the update 
+    ImGuiWindowFlags window_flags = 0;
+    window_flags |= ImGuiWindowFlags_NoResize;
+    window_flags |= ImGuiWindowFlags_AlwaysAutoResize;
+    // ImGui::Begin("game window", NULL, window_flags);
+
     m_stateManager.update(deltaTime);
 }
 
 void Game::showStatWin() {
-    if (ImGui::Begin("stat window")) {
-        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate,
-                    ImGui::GetIO().Framerate);
+    static bool open = true;
+    if(open){
+        if (ImGui::Begin("stat window", &open)) {
+            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate,
+                        ImGui::GetIO().Framerate);
+        }
+        ImGui::End();
     }
-    ImGui::End();
 }
 
 void Game::draw() {
     LOGV << "game render - start";
+    
     m_win.clear(Colors::Gray);
     m_stateManager.draw(m_win);
+
+    // ImGui::End(); // end "game window"
     ImGui::SFML::Render(m_win);
+
     m_win.display();
+
     LOGV << "game render - finish";
 }

@@ -27,7 +27,6 @@ public:
             if (ImGui::Begin("hello", &open)) {
                 ImGui::Text("hello");
                 ImGui::Image(Resources::getTexture(Textures::Player));
-                ImGui::End();
             }
             // End should allways be called after begin
             ImGui::End();

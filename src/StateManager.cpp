@@ -1,8 +1,7 @@
 #include "StateManager.h"
 
 #include <plog/Log.h>
-
-// #include "state/demo_state.h"
+#include <imgui.h>
 
 StateManager::StateManager(sf::RenderWindow& win) : m_win(win) {
     LOGV << "state manager constructor - start";
@@ -37,32 +36,16 @@ void StateManager::handleEvent(const sf::Event& e) {
 }
 
 void StateManager::update(const sf::Time& td) {
-    // ImGui::Begin("states");
-    // if (ImGui::Button("demo state")) {
-    //     pushState(createState(States::Main));
-    // }
-    // if (ImGui::Button("state 2")) {
-    //     pushState(createState(States::Demo2));
-    // }
-    // if (ImGui::Button("resources state")) {
-    //     pushState(createState(States::Resources), true);
-    // }
-    // if (ImGui::Button("collision state")) {
-    //     pushState(createState(States::Collision), true);
-    // }
-    // if (ImGui::Button("gui state")) {
-    //     pushState(createState(States::Gui));
-    // }
+    LOGV << "stateManage update - start";
+    
+    if (ImGui::Button("exit current state")) {
+        popState();
+    }
 
-    // if (ImGui::Button("exit current state")) {
-    //     popState();
-    // }
+    if (ImGui::Button("exit")) {
+        while (!m_states.empty()) m_states.pop();
+    }
 
-    // if (ImGui::Button("exit")) {
-    //     while (!m_states.empty()) m_states.pop();
-    // }
-
-    // ImGui::End();
     if (m_paused)
         return;
 
@@ -72,6 +55,8 @@ void StateManager::update(const sf::Time& td) {
     else {
         LOGD << "empty states stack";
     }
+    
+    LOGV << "stateManage update - finish";
 }
 
 void StateManager::draw(sf::RenderTarget& win) {

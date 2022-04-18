@@ -11,6 +11,7 @@ public:
     Game();
     void run();
     void loadResources();
+    void initImGui();
 
     void processEvents();
     void update(sf::Time elapsedTime);

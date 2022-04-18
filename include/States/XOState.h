@@ -103,12 +103,13 @@ public:
             }
         }
     }
-    virtual void update(const sf::Time&) override {}
+    virtual void update(const sf::Time&) override {
+        ImGui::Text("X won %d time/s\nO won %d time/s", m_XWins, m_OWins);
+    }
     virtual void draw(sf::RenderTarget& win) const override {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) { m_board[i][j].draw(win); }
         }
-        ImGui::Text("X won %d time/s\nO won %d time/s", m_XWins, m_OWins);
     }
 
     void switchTurn() {
