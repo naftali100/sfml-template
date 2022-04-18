@@ -5,6 +5,8 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <imgui-SFML.h>
+#include <imgui.h>
 
 #include "Config.h"
 #include "States/ParticlesState.h"
@@ -13,6 +15,7 @@
 #include "SfmlUtil.h"
 #include "StateManager.h"
 #include "Resouces.h"
+#include "Colors.h"
 
 Game::Game() : m_win(sf::VideoMode(WIN_SIZE_X, WIN_SIZE_Y), "World"), m_stateManager(m_win) {}
 
@@ -28,6 +31,12 @@ void Game::loadResources() {
 void Game::run() {
     LOGV << "game::run - start";
 
+    // init ImGui window
+    bool ImGuiInit = ImGui::SFML::Init(m_win);
+    ImGui::GetIO().Fonts->Clear();
+    ImGui::GetIO().Fonts->AddFontFromFileTTF("fonts/ttf/KlokanTechNotoSans-Regular.ttf", 25.f);
+    ImGui::SFML::UpdateFontTexture();
+
     loadResources();
 
     m_win.setFramerateLimit(FPS);
@@ -41,9 +50,11 @@ void Game::run() {
         processEvents();
         sf::Time deltaTime = clock.restart();
         update(deltaTime);
-        // showStatWin();
+        showStatWin();
         draw();
     }
+
+    ImGui::SFML::Shutdown();
 
     LOGV << "game::run - finish";
 }
@@ -51,6 +62,7 @@ void Game::run() {
 void Game::processEvents() {
     sf::Event event;
     while (m_win.pollEvent(event)) {
+        ImGui::SFML::ProcessEvent(m_win, event);
         m_stateManager.handleEvent(event);
 
         switch (event.type) {
@@ -75,22 +87,23 @@ void Game::processEvents() {
 }
 
 void Game::update(sf::Time deltaTime) {
+    ImGui::SFML::Update(m_win, deltaTime);
     m_stateManager.update(deltaTime);
 }
 
 void Game::showStatWin() {
-    // if (ImGui::Begin("stat window")) {
-    //     ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate,
-    //                 ImGui::GetIO().Framerate);
-    // }
-    // ImGui::End();
+    if (ImGui::Begin("stat window")) {
+        ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate,
+                    ImGui::GetIO().Framerate);
+    }
+    ImGui::End();
 }
 
 void Game::draw() {
     LOGV << "game render - start";
-    m_win.clear();
+    m_win.clear(Colors::Gray);
     m_stateManager.draw(m_win);
-    // ImGui::SFML::Render(m_win);
+    ImGui::SFML::Render(m_win);
     m_win.display();
     LOGV << "game render - finish";
 }
