@@ -23,10 +23,10 @@ find_package (SFML 2.5 COMPONENTS graphics audio network REQUIRED)
 if( WIN32 ) 
     # sfml-main - is windows only 
     set_target_properties (sfml-main sfml-system sfml-window sfml-graphics sfml-audio sfml-network PROPERTIES MAP_IMPORTED_CONFIG_RELWITHDEBINFO RELEASE)
-    target_link_libraries (${PROJECT_NAME} sfml-system sfml-graphics sfml-audio sfml-main sfml‑network)
+    target_link_libraries (${PROJECT_NAME} sfml-system sfml-graphics sfml-audio sfml-main sfml‑network ${OPENGL_LIBRARIES})
 else()
     set_target_properties (sfml-system sfml-window sfml-graphics sfml-audio sfml-network PROPERTIES MAP_IMPORTED_CONFIG_RELWITHDEBINFO RELEASE)
-    target_link_libraries (${PROJECT_NAME} sfml-system sfml-graphics sfml-audio sfml-network)
+    target_link_libraries (${PROJECT_NAME} sfml-system sfml-graphics sfml-audio sfml-network ${OPENGL_LIBRARIES})
 endif()
 
 set(CMAKE_CXX_FLAGS ${CMAKE_CXX_FLAGS} "-std=c++20")
