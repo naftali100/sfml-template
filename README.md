@@ -1,5 +1,5 @@
 # sfml-template
-sfml project template with a lot of stuff built in for easy and quick start.
+cross platform sfml project template with a lot of stuff built in for easy and quick start.
 
 # how to use
 - add new state that inherits from State class.
