@@ -149,4 +149,8 @@ Record& operator<<(Record& record, const I& i) {
     return record;
 }
 
+template <typename T1, typename T2>
+Record& operator<<(Record& os, const std::pair<T1, T2>& p) {
+    return os << "(" << p.first << ": " << p.second << ")";
+}
 }  // namespace plog

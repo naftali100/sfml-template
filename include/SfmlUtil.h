@@ -32,6 +32,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <exception>
+#include <utility>
 
 template <typename T>
 concept hasGlobal = requires(T t) {
@@ -113,8 +114,11 @@ namespace plog {
     template <PrintableShape S>
     Record& operator<<(Record& record, const S& v);
 
-    template <Iterateble C>
-    Record& operator<<(Record& os, C const& c);
+    template <Iterateble I>
+    Record& operator<<(Record& os, const I& i);
+
+    template <typename T1, typename T2>
+    Record& operator<<(Record& os, const std::pair<T1, T2>& p);
 }  // namespace plog
 
 #include "SfmlUtil.tpp"
