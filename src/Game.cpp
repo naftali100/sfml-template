@@ -55,6 +55,8 @@ void Game::run() {
         showStatWin();
         draw();
     }
+    if(m_win.isOpen())
+        m_win.close();
 
     ImGui::SFML::Shutdown();
 
