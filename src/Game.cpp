@@ -20,6 +20,7 @@
 #include "States/PaddleState.h"
 #include "States/ParticlesState.h"
 #include "States/XOState.h"
+#include "States/imguiTest.h"
 
 Game::Game() : m_win(sf::VideoMode(WIN_SIZE_X, WIN_SIZE_Y), "World"), m_stateManager(m_win) {}
 
@@ -38,16 +39,17 @@ void Game::run() {
     // init ImGui window
     bool ImGuiInit = ImGui::SFML::Init(m_win);
     ImGui::GetIO().Fonts->Clear();
+    // TODO: check imgui font range and load hebrew range 0x0590 - 0x05FF
     ImGui::GetIO().Fonts->AddFontFromFileTTF("fonts/ttf/KlokanTechNotoSans-Regular.ttf", 25.f);
     bool i = ImGui::SFML::UpdateFontTexture();
 
     loadResources();
 
     m_win.setFramerateLimit(FPS);
-    // m_win.setKeyRepeatEnabled(false);
+    m_win.setKeyRepeatEnabled(false);
 
     // initial state
-    m_stateManager.pushState(std::make_unique<AnimationState>(m_stateManager));
+    m_stateManager.pushState(std::make_unique<ImGuiTest>(m_stateManager));
 
     sf::Clock clock;
     while (m_stateManager.isRunning()) {

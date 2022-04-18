@@ -22,8 +22,9 @@ private:
 - particle system (not the most efficient).
 - logging with plog, integrate sfml with plog.
 - sfml utilities.
+- imgui.
 
 # todo
 - quad tree.
-- update particle system to use VertexArray.
+- update particle system to use VertexArray and batch rendering (or keep it with drawable?)
 - states factories. (?)
