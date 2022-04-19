@@ -8,6 +8,7 @@
 #include "Log.h"
 #include "Resources.h"
 #include "State.h"
+#include "Colors.h"
 
 enum peace
 {
@@ -82,7 +83,34 @@ public:
             startPos.y += 50;
             startPos.x = 0;
         }
+        setBGColor(Colors::Gray);
     }
+
+    virtual void onLeave(){
+        static bool once = true;
+        LOGI_IF(once);
+        once = false;
+    };
+    virtual void onExit(){
+        static bool once = true;
+        LOGI_IF(once);
+        once = false;
+    };
+    virtual void onEnter(){
+        static bool once = true;
+        LOGI_IF(once);
+        once = false;
+    };
+    virtual void onResume(){
+        static bool once = true;
+        LOGI_IF(once);
+        once = false;
+    };
+    virtual void onEnd(){
+        static bool once = true;
+        LOGI_IF(once);
+        once = false;
+    };
 
     virtual void onEvent(const sf::Event& e) override {
         if (e.type == sf::Event::MouseButtonReleased) {
@@ -107,6 +135,9 @@ public:
         ImGui::Text("X won %d time/s\nO won %d time/s", m_XWins, m_OWins);
     }
     virtual void onDraw(sf::RenderTexture& win) override {
+        static bool once = true;
+        LOGI_IF(once);
+        once = false;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) { m_board[i][j].draw(win); }
         }

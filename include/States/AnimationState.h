@@ -10,7 +10,9 @@
 
 class AnimationState : public State {
 public:
-    AnimationState(StateManager& sm) : State(sm) {
+    // AnimationState(StateManager& sm) : State(sm) {
+    using State::State;
+    void onStart() override {
         m_sprite.scale(2, 2);
         sf::Vector2u textureSize = m_sprite.getTexture()->getSize();
 

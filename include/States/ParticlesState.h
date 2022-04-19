@@ -6,9 +6,9 @@
 
 #include "Config.h"
 #include "ParticleSystem.h"
+#include "Resources.h"
 #include "SfmlUtil.h"
 #include "State.h"
-#include "Resources.h"
 
 struct myParticle : public Particle {
     sf::Sprite sprite{Resources::getTexture(Textures::Player)};
@@ -47,7 +47,7 @@ public:
         m_ps.fuel<myParticle>(100);
         m_ps.update();
     }
-    virtual void onDraw(sf::RenderTexture& win)  override {
+    virtual void onDraw(sf::RenderTexture& win) override {
         m_ps.render();
         win.draw(m_ps.getSprite());
     }

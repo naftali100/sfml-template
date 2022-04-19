@@ -42,6 +42,7 @@ void Game::run() {
     initImGui();
 
     m_win.setFramerateLimit(FPS);
+    m_win.setVerticalSyncEnabled(true);
     m_win.setKeyRepeatEnabled(false);
 
     // initial state
@@ -78,8 +79,8 @@ void Game::processEvents() {
                     break;
                 }
             case sf::Event::Closed:
-                m_win.close();
                 m_stateManager.stop();
+                m_win.close();
                 break;
             case sf::Event::LostFocus:
                 m_stateManager.pause();

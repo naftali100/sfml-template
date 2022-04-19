@@ -46,8 +46,7 @@ void StateManager::update(const sf::Time& td) {
     }
 
     if (ImGui::Button("exit")) {
-
-        
+        // while(getStackSize() > 0) pop();
     }
 
     if (m_paused)
@@ -77,12 +76,10 @@ void StateManager::resume() {
     m_paused = false;
 };
 
-void StateManager::stop() {
-    m_states = {};
-}
+void StateManager::stop() {}
 
 bool StateManager::isRunning() const {
-    return !m_states.empty();
+    return getStackSize() > 0;
 }
 
 // StatePtr StateManager::createState(States::ID stateID) {
