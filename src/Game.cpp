@@ -45,7 +45,8 @@ void Game::run() {
     m_win.setKeyRepeatEnabled(false);
 
     // initial state
-    m_stateManager.pushState(std::make_unique<MainMenu>(m_stateManager));
+    // m_stateManager.pushState(std::make_unique<MainMenu>(m_stateManager));
+    m_stateManager.push<MainMenu>(m_stateManager);
 
     sf::Clock clock;
     while (m_stateManager.isRunning()) {
@@ -119,10 +120,10 @@ void Game::draw() {
     LOGV << "game render - start";
     
     m_win.clear(Colors::Gray);
-    m_stateManager.draw(m_win);
+    m_stateManager.draw();
 
     // ImGui::End(); // end "game window"
-    ImGui::SFML::Render(m_win);
+    ImGui::SFML::Render(*m_stateManager.getSurface());
 
     m_win.display();
 

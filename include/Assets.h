@@ -19,6 +19,7 @@ enum ID
     Gui,
     Particles,
     Animation,
+    Chat,
     StatesCount
 };
 }  // namespace States

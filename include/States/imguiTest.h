@@ -13,7 +13,7 @@ class ImGuiTest : public State {
 public:
     using State::State;
 
-    void init() override {
+    void onStart() override {
         ImGuiStyle& style = ImGui::GetStyle();
         style.WindowRounding = 12;
         style.FrameRounding = 4;
@@ -21,8 +21,8 @@ public:
         style.GrabRounding = 12;
     }
 
-    virtual void handleEvent(const sf::Event&) override{};
-    virtual void update(const sf::Time&) override {
+    virtual void onEvent(const sf::Event&) override{};
+    virtual void onUpdate(const sf::Time&) override {
         if (open) {
             if (ImGui::Begin("hello", &open)) {
                 ImGui::Text("hello");
@@ -43,7 +43,7 @@ public:
         // ImGui::ShowUserGuide();
     };
 
-    virtual void draw(sf::RenderTarget& win) const override{
+    virtual void onDraw(sf::RenderTexture& win) override{
         // imGui draw is globally done in Game class
     };
 

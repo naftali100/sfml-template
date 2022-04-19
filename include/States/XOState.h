@@ -72,7 +72,7 @@ class XOState : public State {
 public:
     using State::State;
 
-    virtual void init() override {
+    virtual void onStart() override {
         sf::Vector2f startPos{0, 0};
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
@@ -84,7 +84,7 @@ public:
         }
     }
 
-    virtual void handleEvent(const sf::Event& e) override {
+    virtual void onEvent(const sf::Event& e) override {
         if (e.type == sf::Event::MouseButtonReleased) {
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
@@ -103,10 +103,10 @@ public:
             }
         }
     }
-    virtual void update(const sf::Time&) override {
+    virtual void onUpdate(const sf::Time&) override {
         ImGui::Text("X won %d time/s\nO won %d time/s", m_XWins, m_OWins);
     }
-    virtual void draw(sf::RenderTarget& win) const override {
+    virtual void onDraw(sf::RenderTexture& win) override {
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) { m_board[i][j].draw(win); }
         }

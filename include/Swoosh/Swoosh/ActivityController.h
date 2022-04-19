@@ -536,11 +536,11 @@ public:
 
     /**
      @brief pass a SFML event to the activity for handleing.
-     @param e. The event object
+     @param event. The event object
     */
-    void handleEvent(const sf::Event& e) {
-        if(getStackSize() > 0){
-            activities.top()->onEvent(e);
+    void handleEvent(const sf::Event& event) {
+        if (getStackSize() > 0) {
+            activities.top()->onEvent(event);
         }
     }
 
@@ -551,7 +551,7 @@ public:
      If optimized for performance and the quality mode is set to `mobile`, will not update the
      activities in the segue to help increase performance on lower end hardware
     */
-    void update(double elapsed) {
+    void update(const sf::Time& elapsed) {
         if (activities.size() == 0)
             return;
 
@@ -588,7 +588,7 @@ public:
             swoosh::Segue* segue = static_cast<swoosh::Segue*>(activities.top());
 
             if (getRequestedQuality() == quality::mobile) {
-                segue->timer.update(sf::seconds(static_cast<float>(elapsed)));
+                segue->timer.update(elapsed);
             }
             else {
                 segue->onUpdate(elapsed);
@@ -802,7 +802,7 @@ public:
     void onResume() override{};
     void onEnd() override{};
 
-    void onUpdate(double elapsed) override{};
+    void onUpdate(const sf::Time& elapsed) override{};
 
     void onDraw(sf::RenderTexture& surface) override {
         surface.draw(drawable);

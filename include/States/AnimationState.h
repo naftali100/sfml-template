@@ -27,11 +27,10 @@ public:
         }
     }
 
-    virtual void handleEvent(const sf::Event&) override {}
-    virtual void update(const sf::Time& dt) override {
+    virtual void onUpdate(const sf::Time& dt) override {
         animation.update(dt.asSeconds());
     };
-    virtual void draw(sf::RenderTarget& win) const override {
+    virtual void onDraw(sf::RenderTexture& win) override {
         win.draw(m_sprite);
     }
 

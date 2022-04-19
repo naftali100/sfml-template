@@ -6,17 +6,19 @@
 #include <stack>
 
 #include "State.h"
+#include "Swoosh/ActivityController.h"
 
-class StateManager {
+
+class StateManager: public swoosh::ActivityController {
 public:
     StateManager(sf::RenderWindow& win);
 
-    void pushState(StatePtr, bool = false);
-    void popState();
+    // void pushState(StatePtr, bool = false);
+    // void popState();
 
-    void handleEvent(const sf::Event&);
+    // void handleEvent(const sf::Event&);
     void update(const sf::Time& td);
-    void draw(sf::RenderTarget&);
+    // void draw(sf::RenderTarget&);
 
     void stop();
     bool isRunning() const;

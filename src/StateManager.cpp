@@ -3,73 +3,71 @@
 #include <plog/Log.h>
 #include <imgui.h>
 
-StateManager::StateManager(sf::RenderWindow& win) : m_win(win) {
+StateManager::StateManager(sf::RenderWindow& win) : m_win(win), swoosh::ActivityController(win) {
     LOGV << "state manager constructor - start";
     // registerState<DemoState>(States::Main);
 
     LOGV << "state manager constructor - finish";
 }
 
-void StateManager::pushState(StatePtr ptr, bool pauseCurrent) {
-    if (!pauseCurrent && !m_states.empty()) {
-        m_states.pop();
-    }
-    m_states.push(std::move(ptr));
-    m_states.top()->init();
-}
+// void StateManager::pushState(StatePtr ptr, bool pauseCurrent) {
+//     if (!pauseCurrent && !m_states.empty()) {
+//         m_states.pop();
+//     }
+//     m_states.push(std::move(ptr));
+//     // m_states.top()->init();
+// }
 
-void StateManager::popState() {
-    if (!m_states.empty())
-        m_states.pop();
-}
+// void StateManager::popState() {
+//     if (!m_states.empty())
+//         m_states.pop();
+// }
 
-void StateManager::handleEvent(const sf::Event& e) {
-    if (m_paused)
-        return;
+// void StateManager::handleEvent(const sf::Event& e) {
+    // getCurrentActivity();
+    // if (m_paused)
+    //     return;
 
-    if (!m_states.empty()) {
-        m_states.top()->handleEvent(e);
-    }
-    else {
-        LOGI << "empty states stack";
-    }
-}
+    // if (!m_states.empty()) {
+    //     m_states.top()->handleEvent(e);
+    // }
+    // else {
+    //     LOGI << "empty states stack";
+    // }
+// }
 
 void StateManager::update(const sf::Time& td) {
     LOGV << "stateManage update - start";
+
+    swoosh::ActivityController::update(td);
     
     if (ImGui::Button("exit current state")) {
-        popState();
+        pop();
     }
 
     if (ImGui::Button("exit")) {
-        while (!m_states.empty()) m_states.pop();
+
+        
     }
 
     if (m_paused)
         return;
-
-    if (!m_states.empty()) {
-        m_states.top()->update(td);
-    }
-    else {
-        LOGD << "empty states stack";
-    }
     
     LOGV << "stateManage update - finish";
 }
 
-void StateManager::draw(sf::RenderTarget& win) {
-    if (m_paused)
-        return;
+// void StateManager::draw(sf::RenderTarget& win) {
+//     if (m_paused)
+//         return;
 
-    if (!m_states.empty()) {
-        m_states.top()->draw(win);
-    }
-    else {
-        LOGD << "empty states stack";
-    }
-}
+//     if (!m_states.empty()) {
+//         swoosh::ActivityController::draw();
+//         m_states.top()->draw(win);
+//     }
+//     else {
+//         LOGD << "empty states stack";
+//     }
+// }
 
 void StateManager::pause() {
     m_paused = true;

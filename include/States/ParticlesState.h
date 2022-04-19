@@ -30,7 +30,7 @@ struct myParticle : public Particle {
 class ParticlesState : public State {
 public:
     using State::State;
-    void init() override {
+    void onStart() override {
         m_ps.setDissolve(true);
         m_ps.setDissolutionRate(1);
         m_ps.setShape(Shape::SQUARE);
@@ -38,16 +38,16 @@ public:
         // m_ps.setGravity( 1.0f, 1.0f );
     };
 
-    virtual void handleEvent(const sf::Event& e) override {
+    virtual void onEvent(const sf::Event& e) override {
         if (e.type == sf::Event::MouseMoved) {
             m_ps.setPosition(e.mouseMove.x, e.mouseMove.y);
         }
     }
-    virtual void update(const sf::Time&) override {
+    virtual void onUpdate(const sf::Time&) override {
         m_ps.fuel<myParticle>(100);
         m_ps.update();
     }
-    virtual void draw(sf::RenderTarget& win) const override {
+    virtual void onDraw(sf::RenderTexture& win)  override {
         m_ps.render();
         win.draw(m_ps.getSprite());
     }
