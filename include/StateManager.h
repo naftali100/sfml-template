@@ -31,6 +31,7 @@ public:
     void pause();
     void resume();
 
+    bool m_showImGuiGameWindow = true;
 private:
     sf::RenderWindow& m_win;
     std::stack<StatePtr> m_states;

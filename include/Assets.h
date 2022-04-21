@@ -28,7 +28,8 @@ enum ID
 {
     Player,
     FireAnimationSheet,
-    Run
+    Run,
+    Map
 };  // add textures here
 }  // namespace Textures
 

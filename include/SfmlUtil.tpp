@@ -126,6 +126,13 @@ sf::Vector2f getGlobalBottomRight(const T& object) {
 }  // namespace sf
 
 namespace plog {
+template <typename T>
+Record& operator<<(Record& record, const sf::Rect<T>& v) {
+    record << v.top << ", " << v.left << " : " << v.width << ", " << v.height
+           << " (low right corner: " << v.left + v.width << ", " << v.top + v.height << ")";
+    return record;
+}
+
 template <PrintableShape S>
 Record& operator<<(Record& record, const S& s) {
     record << s.getPosition().x << ", " << s.getPosition().y << " : " << s.getSize().x << ", " << s.getSize().y

@@ -108,6 +108,9 @@ concept Iterateble = requires(T t) {
 };
 
 namespace plog {
+    template <typename T>
+    inline Record& operator<<(Record& record, const sf::Rect<T>& v);
+
     template <PrintableVec V>
     Record& operator<<(Record& record, const V& v);
 

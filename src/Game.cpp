@@ -21,6 +21,7 @@ void Game::loadResources() {
     Resources::loadTexture(Textures::Player, "textures/player.png");
     Resources::loadTexture(Textures::FireAnimationSheet, "textures/fireSheet.png");
     Resources::loadTexture(Textures::Run, "textures/run.png");
+    Resources::loadTexture(Textures::Map, "textures/map1.png");
     Resources::loadFont(Fonts::Main, FONT_PATH);
     Resources::loadFont(Fonts::Test, "fonts/ttf/KlokanTechNotoSans-Regular.ttf");
     Resources::loadSoundBuffer(SoundEffect::Main, "music/background.ogg");
@@ -33,6 +34,12 @@ void Game::initImGui() {
     // TODO: check imgui font range and load hebrew range 0x0590 - 0x05FF
     ImGui::GetIO().Fonts->AddFontFromFileTTF("fonts/ttf/KlokanTechNotoSans-Regular.ttf", 25.f);
     bool i = ImGui::SFML::UpdateFontTexture();
+    // set my style for ImGui
+    ImGuiStyle& style = ImGui::GetStyle();
+    style.WindowRounding = 12;
+    style.FrameRounding = 4;
+    style.ScrollbarRounding = 12;
+    style.GrabRounding = 12;
 }
 
 void Game::run() {
@@ -92,14 +99,6 @@ void Game::processEvents() {
 
 void Game::update(sf::Time deltaTime) {
     ImGui::SFML::Update(m_win, deltaTime);
-    // create window with my title and flags
-    // MAYBE: check how to change debug window flags
-    // to use the defult Debug window of ImGui use imGui::End in the begining of your stat's update method
-    // and ImGui::Begin in the end of the update
-    ImGuiWindowFlags window_flags = 0;
-    window_flags |= ImGuiWindowFlags_NoResize;
-    window_flags |= ImGuiWindowFlags_AlwaysAutoResize;
-    // ImGui::Begin("game window", NULL, window_flags);
 
     m_stateManager.update(deltaTime);
 }
@@ -121,7 +120,6 @@ void Game::draw() {
     m_win.clear(Colors::Gray);
     m_stateManager.draw(m_win);
 
-    // ImGui::End(); // end "game window"
     ImGui::SFML::Render(m_win);
 
     m_win.display();

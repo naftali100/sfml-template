@@ -73,14 +73,15 @@ public:
     using State::State;
 
     virtual void init() override {
-        sf::Vector2f startPos{0, 0};
+        auto winSize = m_stateManager.getWin().getSize();
+        sf::Vector2f startPos{(float)winSize.x / 2, (float)winSize.y / 2};
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 m_board[i][j].setPosition(startPos);
                 startPos = sf::util::getGlobalTopRight(m_board[i][j]);
             }
             startPos.y += 50;
-            startPos.x = 0;
+            startPos.x = (float)winSize.x / 2;
         }
     }
 
@@ -91,7 +92,11 @@ public:
                     if (m_board[i][j].getGlobalBounds().contains(sf::Vector2f(e.mouseButton.x, e.mouseButton.y))) {
                         if (m_board[i][j].getPeace() == Empty) {
                             m_board[i][j].setPeace(m_turn);
-                            if (checkIfWon() || checkIfTie()) {
+                            if (checkIfWon()) {
+                                m_turn == X ? m_XWins++ : m_OWins++;
+                                resetGame();
+                            }
+                            else if (checkIfTie()) {
                                 resetGame();
                             }
                             else {
@@ -154,13 +159,16 @@ public:
     }
 
     bool checkIfWon() {
+        // check cross
+        if (checkIfCrossIsSame()) {
+            LOGI << checkIfCrossIsSame();
+            return true;
+        }
+        // check rows/cols
         for (int i = 0; i < 3; i++) {
-            if (checkIfColIsSame(i) || checkIfRowIsSame(i) || checkIfCrossIsSame()) {
-                m_turn == X ? m_XWins++ : m_OWins++;
+            if (checkIfColIsSame(i) || checkIfRowIsSame(i)) {
                 LOGI << checkIfColIsSame(i);
                 LOGI << checkIfRowIsSame(i);
-                LOGI << checkIfCrossIsSame();
-                LOGI << peaceToChar(m_turn) << " win";
                 return true;
             }
         }
