@@ -55,7 +55,7 @@ void Game::run() {
         showStatWin();
         draw();
     }
-    if(m_win.isOpen())
+    if (m_win.isOpen())
         m_win.close();
 
     ImGui::SFML::Shutdown();
@@ -94,8 +94,8 @@ void Game::update(sf::Time deltaTime) {
     ImGui::SFML::Update(m_win, deltaTime);
     // create window with my title and flags
     // MAYBE: check how to change debug window flags
-    // to use the defult Debug window of ImGui use imGui::End in the begining of your stat's update method 
-    // and ImGui::Begin in the end of the update 
+    // to use the defult Debug window of ImGui use imGui::End in the begining of your stat's update method
+    // and ImGui::Begin in the end of the update
     ImGuiWindowFlags window_flags = 0;
     window_flags |= ImGuiWindowFlags_NoResize;
     window_flags |= ImGuiWindowFlags_AlwaysAutoResize;
@@ -106,7 +106,7 @@ void Game::update(sf::Time deltaTime) {
 
 void Game::showStatWin() {
     static bool open = true;
-    if(open){
+    if (open) {
         if (ImGui::Begin("stat window", &open)) {
             ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate,
                         ImGui::GetIO().Framerate);
@@ -117,7 +117,7 @@ void Game::showStatWin() {
 
 void Game::draw() {
     LOGV << "game render - start";
-    
+
     m_win.clear(Colors::Gray);
     m_stateManager.draw(m_win);
 
