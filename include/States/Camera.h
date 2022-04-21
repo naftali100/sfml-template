@@ -2,6 +2,8 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+#include <imgui.h>
+
 #include <SFML/Graphics.hpp>
 
 #include "Log.h"
@@ -9,9 +11,6 @@
 
 class Camera {
 public:
-    void setView(const sf::View& v) {
-        m_view = v;
-    }
     void setView(const sf::View& view) {
         m_view = view;
     }
@@ -26,6 +25,15 @@ public:
         switch (e.type) {
             case sf::Event::Resized:
                 m_view.setSize(e.size.width, e.size.height);
+                break;
+            case sf::Event::MouseWheelScrolled:
+                if (e.mouseWheelScroll.delta > 0) {
+                    // zoomViewAt({ e.mouseWheelScroll.x, e.mouseWheelScroll.y }, window, (1.f / zoomAmount));
+                }
+                else if (e.mouseWheelScroll.delta < 0) {
+                    // zoomViewAt({ e.mouseWheelScroll.x, e.mouseWheelScroll.y }, window, zoomAmount);
+                }
+                break;
         }
     }
 
@@ -69,26 +77,40 @@ public:
 
         if (ImGui::Button("print viewport")) {
             LOGI << m_view.getViewport();
-            ImGui::LogText("hello");
         }
 
-        static bool showDemo = false;
-        if (ImGui::Button("show demo win")) {
-            showDemo = true;
+        if (ImGui::Button("print view center")) {
+            LOGI << m_view.getCenter();
         }
 
-        if (showDemo) {
-            ImGui::ShowDemoWindow(&showDemo);
+        if (ImGui::Button("print view size")) {
+            LOGI << m_view.getSize();
         }
     }
 
     // set the view to window
     virtual void draw(sf::RenderTarget& win) const {
+        // if (ImGui::Button("reset view to window size")) {
+            // auto rec = sf::FloatRect{0, 0, win.getSize().x, win.getSize().y};
+            // m_view = sf::View(rec);
+        // }
         win.setView(m_view);
     }
 
+    void zoomViewAt(sf::Vector2i pixel, sf::RenderTarget& window, float zoom) {
+        const sf::Vector2f beforeCoord{window.mapPixelToCoords(pixel)};
+        sf::View view{window.getView()};
+        view.zoom(zoom);
+        window.setView(view);
+        const sf::Vector2f afterCoord{window.mapPixelToCoords(pixel)};
+        const sf::Vector2f offsetCoords{beforeCoord - afterCoord};
+        view.move(offsetCoords);
+        window.setView(view);
+        m_view = window.getView();
+    }
+
 private:
-    sf::View m_view;
+    mutable sf::View m_view;
 };
 
 #endif

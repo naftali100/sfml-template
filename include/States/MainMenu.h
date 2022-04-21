@@ -61,10 +61,13 @@ public:
 
         if (ImGui::Button("exit")) {
             m_stateManager.stop();
+            return;
         }
 
         ImGui::Checkbox("pause current state when pushing new state?", &m_pauseOnPush);
         ImGui::Checkbox("show game window", &m_stateManager.m_showImGuiGameWindow);
+
+        LOGD;
     };
 
     virtual void draw(sf::RenderTarget&) const override{};

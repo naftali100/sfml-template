@@ -10,28 +10,11 @@
 #include <SFML/System/Clock.hpp>
 #include <SFML/System/Vector2.hpp>
 #include "Particle.h"
-#include <random>
+#include "Random.h"
 #include <vector>
 
 template<typename T>
 concept DerivedFromParticle = std::is_base_of<Particle, T>::value; 
-
-class Randomizer {
-public:
-    Randomizer() : device_(), engine_(device_()){};
-    int rnd(int a, int b) {
-        std::uniform_int_distribution<int> uni_dist(a, b);
-        return uni_dist(engine_);
-    };
-    double rnd(double a, double b) {
-        std::uniform_real_distribution<double> uni_dist(a, b);
-        return uni_dist(engine_);
-    };
-
-private:
-    std::random_device device_;
-    std::default_random_engine engine_;
-};
 
 namespace Shape {
 enum

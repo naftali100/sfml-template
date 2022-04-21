@@ -87,18 +87,19 @@ void Game::processEvents() {
                 m_win.close();
                 m_stateManager.stop();
                 break;
-            case sf::Event::LostFocus:
-                m_stateManager.pause();
-                break;
-            case sf::Event::GainedFocus:
-                m_stateManager.resume();
-                break;
+                // case sf::Event::LostFocus:
+                //     m_stateManager.pause();
+                //     break;
+                // case sf::Event::GainedFocus:
+                //     m_stateManager.resume();
+                //     break;
         }
     }
 }
 
 void Game::update(sf::Time deltaTime) {
     ImGui::SFML::Update(m_win, deltaTime);
+    ImGui::Text("mouse position: %d, %d", sf::Mouse::getPosition().x, sf::Mouse::getPosition().y);
 
     m_stateManager.update(deltaTime);
 }

@@ -3,7 +3,6 @@
 #define TILEMAP_H
 
 #include <SFML/Graphics.hpp>
-#include "Log.h"
 
 enum TileName
 {
@@ -39,11 +38,17 @@ public:
     void setLayoutWidth(int w) {
         m_layoutWidth = w;
     }
-    void setView(const sf::View&) {}
-    void setView(const sf::Vector2u& view) {}
-    sf::Sprite getTile(TileName) {
-        // m_sprite.setTextureRect();
-        return m_sprite;
+
+    sf::Vector2f getTileSize() const {
+        return m_tileSize;
+    }
+
+    std::vector<int> getLayout() const {
+        return m_layout;
+    }
+
+    sf::Vector2u getMapSize() const {
+        return m_fullMap.getSize();
     }
 
     void renderFullMap() {
@@ -52,16 +57,10 @@ public:
         startPoint = drawPos = {0, 0};
         int counter = 0;
         for (int tileID : m_layout) {
-            // next line
-            if (counter % m_layoutWidth == 0) {
-                drawPos.x = startPoint.x;
-                drawPos.y += m_tileSize.y;
-            }
             // draw
             // get the tile in the texture: go tileSize the amount from the counter to the end of "line" of tiles in the
             // texture
             auto rec = sf::IntRect(sf::Vector2i(m_tileSize.x * tileID, 0), (sf::Vector2i)m_tileSize);
-            LOGI << rec;
             sf::Sprite s{Resources::getTexture(m_textureID), rec};
             s.setPosition(drawPos);
             m_fullMap.draw(s);
@@ -69,13 +68,26 @@ public:
             // move to next tile position
             drawPos.x += m_tileSize.x;
             counter++;
+
+            // next line
+            if (counter % m_layoutWidth == 0) {
+                drawPos.x = startPoint.x;
+                drawPos.y += m_tileSize.y;
+            }
         }
         m_fullMap.display();
+    }
+    void generateRandomMap() {
+        std::vector<int> vec;
+        Randomizer r;
+        for (int i = 0; i < 20; i++) { vec.push_back(r.rnd(0, 3)); }
+        setLayout(vec);
+        renderFullMap();
     }
 
     void draw(sf::RenderTarget& win) const {
         sf::Sprite s{m_fullMap.getTexture()};
-        // s.setTextureRect;
+        // ! draw by view size
         win.draw(s);
     }
 
