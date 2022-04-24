@@ -2,6 +2,8 @@
 
 cross platform sfml project template with a lot of stuff built in for easy and quick start.
 
+WIP.
+
 # how to use
 
 - add new state that inherits from State class.
@@ -17,6 +19,7 @@ cross platform sfml project template with a lot of stuff built in for easy and q
   };
   ```
 - set the entry state in game class before the game loop.
+- compile and run.
 
 # what's in
 
