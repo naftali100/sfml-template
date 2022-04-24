@@ -24,6 +24,8 @@ cross platform sfml project template with a lot of stuff built in for easy and q
 - animation (using texture atlas)
 - easy resource management
 - particle system (not the most efficient)
+- tile map
+- advance camera (with movements, zoom and adjustments to window resize in various ways)
 - logging with plog, integrate sfml with plog
 - sfml utilities
 - imgui
