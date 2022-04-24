@@ -19,7 +19,7 @@ enum winResizeStrategy
 // kinda sub state that update the view
 class Camera {
 public:
-    void setInitialView(){
+    void setInitialView() {
         m_initialView = m_view;
     }
     void setView(const sf::View& view) {
@@ -35,7 +35,7 @@ public:
         m_view = sf::View(rect);
     }
 
-    void resetView(){
+    void resetView() {
         m_view = m_initialView;
     }
 
@@ -58,7 +58,7 @@ public:
         switch (e.type) {
             case sf::Event::Resized:
                 m_windowRatio = (float)e.size.width / (float)e.size.height;
-                
+
                 switch (m_resizeStrategy) {
                     // crop viewport to match view ratio
                     case LatterBox:
