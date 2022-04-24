@@ -36,5 +36,5 @@ cross platform sfml project template with a lot of stuff built in for easy and q
 
 # Credits
 
-- SFML's wiki (particle system, animation)
+- SFML's wiki (particle system, animation, tileMap, latterBox view)
 - [ImGui](https://github.com/ocornut/imgui)

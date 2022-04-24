@@ -99,7 +99,6 @@ void Game::processEvents() {
 
 void Game::update(sf::Time deltaTime) {
     ImGui::SFML::Update(m_win, deltaTime);
-    ImGui::Text("mouse position: %d, %d", sf::Mouse::getPosition().x, sf::Mouse::getPosition().y);
 
     m_stateManager.update(deltaTime);
 }

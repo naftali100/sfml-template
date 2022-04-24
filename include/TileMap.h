@@ -14,10 +14,6 @@ enum TileName
 class TileMap {
 public:
     TileMap() = default;
-    // TileMap(Textures::ID texture, const sf::Vector2f& tileSize, const sf::Vector2f& TileOffset,
-    //         const std::vector<TileName>& layout, const int layoutWidth) {
-    //     renderFullMap();
-    // }
     void setTexture(Textures::ID texture) {
         m_textureID = texture;
     }
@@ -33,8 +29,6 @@ public:
     void setLayout(const std::vector<int>& layout) {
         m_layout = layout;
     }
-    // or, all tiles in one row?
-    void setTilesInTextureRow(int) {}
     void setLayoutWidth(int w) {
         m_layoutWidth = w;
     }
@@ -45,6 +39,10 @@ public:
 
     std::vector<int> getLayout() const {
         return m_layout;
+    }
+
+    int getLayoutWidth() const {
+        return m_layoutWidth;
     }
 
     sf::Vector2u getMapSize() const {
@@ -80,7 +78,7 @@ public:
     void generateRandomMap() {
         std::vector<int> vec;
         Randomizer r;
-        for (int i = 0; i < 20; i++) { vec.push_back(r.rnd(0, 3)); }
+        for (int i = 0; i < m_layoutWidth * m_layoutWidth; i++) { vec.push_back(r.rnd(0, 3)); }
         setLayout(vec);
         renderFullMap();
     }

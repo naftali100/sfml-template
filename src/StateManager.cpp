@@ -3,6 +3,19 @@
 #include <imgui.h>
 #include <plog/Log.h>
 
+void HelpMarker(const char* desc)
+{
+    ImGui::TextDisabled("what is this");
+    if (ImGui::IsItemHovered())
+    {
+        ImGui::BeginTooltip();
+        ImGui::PushTextWrapPos(ImGui::GetFontSize() * 35.0f);
+        ImGui::TextUnformatted(desc);
+        ImGui::PopTextWrapPos();
+        ImGui::EndTooltip();
+    }
+}
+
 StateManager::StateManager(sf::RenderWindow& win) : m_win(win) {
     LOGV << "state manager constructor - start";
     // registerState<DemoState>(States::Main);
@@ -53,7 +66,7 @@ void StateManager::update(const sf::Time& td) {
         window_flags |= ImGuiWindowFlags_AlwaysAutoResize;
         // ImGui::SetNextWindowPos(sf::Vector2f(10, 10));
         if (ImGui::Begin("game window", &m_showImGuiGameWindow, window_flags)) {
-            ImGui::Text("my game state manager's default window\nyou can close this by setting show to false\nyou can add stuff to the window for consistant\nif you close this and add stuff they go to debug window");
+            HelpMarker("my game state manager's default window\nyou can close this by setting show to false\nyou can add stuff to the window for consistant\nif you close this and add stuff they go to debug window");
         }
     }
 

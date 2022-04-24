@@ -11,6 +11,11 @@ class StateManager {
 public:
     StateManager(sf::RenderWindow& win);
 
+    // TODO
+    // template <typename T, typename... Args>
+    // inline void pushState(Args&&... args) {
+    //     pushState(std::make_unique<T>(std::forward<Args>(args)...));
+    // }
     void pushState(StatePtr, bool = false);
     void popState();
 
@@ -32,6 +37,7 @@ public:
     void resume();
 
     bool m_showImGuiGameWindow = true;
+
 private:
     sf::RenderWindow& m_win;
     std::stack<StatePtr> m_states;

@@ -12,11 +12,11 @@
 // #include "States/FontTest.h"
 // #include "States/PaddleState.h"
 #include "Log.h"
+#include "States/Camera.h"
+#include "States/Map.h"
 #include "States/ParticlesState.h"
 #include "States/XOState.h"
 #include "States/imguiTest.h"
-#include "States/Map.h"
-#include "States/Camera.h"
 
 class MainMenu : public State {
 public:
@@ -39,24 +39,21 @@ public:
             m_stateManager.pushState(std::make_unique<AnimationState>(m_stateManager), m_pauseOnPush);
         }
 
-        if(ImGui::Button("ImGui test state")){
+        if (ImGui::Button("ImGui test state")) {
             m_stateManager.pushState(std::make_unique<ImGuiTest>(m_stateManager), m_pauseOnPush);
         }
 
-        // if(ImGui::Button("camera state")){
-        //     m_stateManager.pushState(std::make_unique<Camera>(m_stateManager), m_pauseOnPush);
-        // }
-
-        if(ImGui::Button("show demo window")){
+        if (ImGui::Button("show demo window")) {
             m_showDemo = true;
         }
 
-        if(m_showDemo){
+        if (m_showDemo) {
             ImGui::ShowDemoWindow(&m_showDemo);
         }
 
         if (ImGui::Button("exit current state")) {
-                m_stateManager.popState();
+            m_stateManager.popState();
+            return;
         }
 
         if (ImGui::Button("exit")) {
