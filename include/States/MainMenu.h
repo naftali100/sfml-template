@@ -7,12 +7,8 @@
 
 #include "State.h"
 #include "States/AnimationState.h"
-// #include "States/Chat.h"
 #include "States/DemoState.h"
-// #include "States/FontTest.h"
-// #include "States/PaddleState.h"
 #include "Log.h"
-#include "States/Camera.h"
 #include "States/Map.h"
 #include "States/ParticlesState.h"
 #include "States/XOState.h"
