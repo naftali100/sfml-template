@@ -13,7 +13,7 @@ struct Particle {
     virtual void init() = 0;
     virtual void update() = 0;
     virtual void draw(sf::RenderTarget& r) const = 0;
-    ~Particle() = default;
+    virtual ~Particle() = default;
 };
 
 typedef std::vector<Particle*>::iterator ParticleIterator;

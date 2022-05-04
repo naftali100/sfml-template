@@ -77,8 +77,7 @@ public:
     }
     void generateRandomMap() {
         std::vector<int> vec;
-        Randomizer r;
-        for (int i = 0; i < m_layoutWidth * m_layoutWidth; i++) { vec.push_back(r.rnd(0, 3)); }
+        for (int i = 0; i < m_layoutWidth * m_layoutWidth; i++) { vec.push_back(Random::rnd(0, 3)); }
         setLayout(vec);
         renderFullMap();
     }

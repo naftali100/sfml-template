@@ -93,13 +93,13 @@ void ParticleSystem::fuel(int particles) {
 
         switch (m_shape) {
             case Shape::CIRCLE:
-                angle = m_randomizer.rnd(0.0f, 6.2832f);
-                particle->m_vel.x = m_randomizer.rnd(0.0f, cos(angle));
-                particle->m_vel.y = m_randomizer.rnd(0.0f, sin(angle));
+                angle = Random::rnd(0.0f, 6.2832f);
+                particle->m_vel.x = Random::rnd(0.0f, cos(angle));
+                particle->m_vel.y = Random::rnd(0.0f, sin(angle));
                 break;
             case Shape::SQUARE:
-                particle->m_vel.x = m_randomizer.rnd(-1.0f, 1.0f);
-                particle->m_vel.y = m_randomizer.rnd(-1.0f, 1.0f);
+                particle->m_vel.x = Random::rnd(-1.0f, 1.0f);
+                particle->m_vel.y = Random::rnd(-1.0f, 1.0f);
                 break;
             default:
                 particle->m_vel.x = 0.5f;  // Easily detected

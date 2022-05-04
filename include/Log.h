@@ -4,7 +4,7 @@
 
 // convenience file
 
-#define PLOG_OMIT_LOG_DEFINES
+// #define PLOG_OMIT_LOG_DEFINES - disable LOG* prefix
 #include <plog/Log.h>
 
 #include "SfmlUtil.h"
