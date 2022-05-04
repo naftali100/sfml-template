@@ -1,3 +1,6 @@
 [submodule "lib/plog"]
 	path = lib/plog
 	url = https://github.com/SergiusTheBest/plog
+[submodule "lib/doctest"]
+	path = lib/doctest
+	url = https://github.com/doctest/doctest
