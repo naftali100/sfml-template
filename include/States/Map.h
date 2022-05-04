@@ -2,7 +2,7 @@
 #ifndef MAP_H
 #define MAP_H
 
-#include "Camera.h"
+#include "StateComponents/Camera.h"
 #include "Log.h"
 #include "Random.h"
 #include "Resources.h"
