@@ -12,11 +12,15 @@ TEST_CASE("test state manager"){
     sm.pushState(std::make_unique<DemoState>(sm));
     CHECK(sm.isRunning() == true);
 
-    sm.popState();
-    CHECK(sm.isRunning() == false);
+    SUBCASE("pop state"){
+        sm.popState();
+        CHECK(sm.isRunning() == false);
+    }
 
-    sm.stop();
-    CHECK(sm.isRunning() == false);
+    SUBCASE("stop"){
+        sm.stop();
+        CHECK(sm.isRunning() == false);
+    }
 
     win.close();
 }
