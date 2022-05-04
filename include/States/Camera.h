@@ -3,11 +3,7 @@
 #define CAMERA_H
 
 #include <imgui.h>
-
-#include <SFML/Graphics.hpp>
-
-#include "Log.h"
-#include "State.h"
+#include <SFML/Graphics/View.hpp>
 
 enum winResizeStrategy
 {
@@ -53,6 +49,8 @@ public:
         m_resizeStrategy = s;
     }
 
+    // reset view to default - manually set by setInitialView
+    // @see setInitialView
     void resetView() {
         m_view = m_initialView;
     }

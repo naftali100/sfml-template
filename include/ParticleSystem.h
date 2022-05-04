@@ -72,7 +72,6 @@ private:
     sf::Clock m_clock;        // Used to scale particle motion
     sf::Color m_transparent;  // sf::Color( 0, 0, 0, 0 )
     sf::RenderTexture m_texture;
-    Randomizer m_randomizer;
     sf::Sprite m_sprite;    // Connected to m_image
     float m_particleSpeed;  // Pixels per second (at most)
     bool m_dissolve;        // Dissolution enabled?
