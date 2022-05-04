@@ -4,6 +4,8 @@ list(REMOVE_ITEM source_files "${CMAKE_CURRENT_LIST_DIR}/main.cpp")
 add_library(${SOURCES_LIB} OBJECT ${source_files})
 target_link_libraries(${SOURCES_LIB} PUBLIC plog)
 
+target_precompile_headers(${SOURCES_LIB} PUBLIC "${CMAKE_SOURCE_DIR}/include/pch.h")
+
 if( WIN32 ) 
     # dosnt work on linux from package manager (need to manualy compile dynamic lib)...
     set (SFML_STATIC_LIBRARIES TRUE)
