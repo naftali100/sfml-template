@@ -11,14 +11,22 @@
 
 enum winResizeStrategy
 {
-    LatterBox,
-    FixRatio,
-    ResizeView
+    LatterBox,  // change the viewport to math new window size
+    FixRatio,   // change the view size while keeping the original ration
+    ResizeView  // reset the view to match the new window size as is
 };
 
 // kinda sub state that update the view
 class Camera {
 public:
+    /////////////////////////////////////
+    // SETTERS
+    // - view
+    // - reset strategy
+    // - window ratio
+    /////////////////////////////////////
+
+    // save the current view as default fallback size
     void setInitialView() {
         m_initialView = m_view;
     }
@@ -35,13 +43,23 @@ public:
         m_view = sf::View(rect);
     }
 
+    void setWinRatio(const sf::Vector2u& winSize) {
+        m_windowRatio = (float)winSize.x / (float)winSize.y;
+    }
+    void setWinRatio(const float ratio) {
+        m_windowRatio = ratio;
+    }
+    void setResizeStrategy(const winResizeStrategy& s) {
+        m_resizeStrategy = s;
+    }
+
     void resetView() {
         m_view = m_initialView;
     }
 
-    void setResizeStrategy(const winResizeStrategy& s) {
-        m_resizeStrategy = s;
-    }
+    //////////////////////////////////
+    // GETERS
+    //////////////////////////////////
 
     winResizeStrategy getResizeStrategy() const {
         return m_resizeStrategy;
@@ -53,6 +71,10 @@ public:
     const sf::View& getView() const {
         return m_view;
     }
+
+    //////////////////////////////////////////////
+    // handle events, update, draw
+    //////////////////////////////////////////////
 
     virtual void handleEvent(const sf::Event& e) {
         switch (e.type) {
@@ -73,6 +95,7 @@ public:
                     case ResizeView:
                         m_view.setSize(e.size.width, e.size.height);
                 }
+
                 break;
         }
     }
@@ -137,6 +160,11 @@ public:
         win.setView(m_view);
     }
 
+    ////////////////////////////////////////
+    // UTILITES
+    // for varios operations on views
+    ////////////////////////////////////////
+
     void zoomViewAt(sf::Vector2i pixel, sf::RenderTarget& window, float zoom) {
         const sf::Vector2f beforeCoord{window.mapPixelToCoords(pixel)};
         sf::View view{window.getView()};
@@ -149,6 +177,16 @@ public:
         m_view = window.getView();
     }
 
+    ///////////////////////////////////////////
+    // resize strategy functions
+    ///////////////////////////////////////////
+
+    void fixRatio() {
+        resetView();
+        auto size = m_view.getSize();
+        m_view.setSize(size.x * m_windowRatio, size.y);
+    }
+
     sf::View getLetterboxView(sf::View view) {
         // Compares the aspect ratio of the window to the aspect ratio of the view,
         // and sets the view's viewport accordingly in order to archieve a letterbox effect.
@@ -156,10 +194,7 @@ public:
 
         float windowRatio = m_windowRatio;
         float viewRatio = view.getSize().x / (float)view.getSize().y;
-        float sizeX = 1;
-        float sizeY = 1;
-        float posX = 0;
-        float posY = 0;
+        float sizeX = 1, sizeY = 1, posX = 0, posY = 0;
 
         bool horizontalSpacing = true;
         if (windowRatio < viewRatio)
@@ -172,29 +207,13 @@ public:
             sizeX = viewRatio / windowRatio;
             posX = (1 - sizeX) / 2.f;
         }
-
         else {
             sizeY = windowRatio / viewRatio;
             posY = (1 - sizeY) / 2.f;
         }
 
         view.setViewport(sf::FloatRect(posX, posY, sizeX, sizeY));
-
         return view;
-    }
-
-    void fixRatio() {
-        resetView();
-        auto size = m_view.getSize();
-        m_view.setSize(size.x * m_windowRatio, size.y);
-    }
-
-    void setWinRatio(const sf::Vector2u& winSize) {
-        m_windowRatio = (float)winSize.x / (float)winSize.y;
-    }
-
-    void setWinRatio(const float ratio) {
-        m_windowRatio = ratio;
     }
 
     // WIP
