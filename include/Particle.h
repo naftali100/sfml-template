@@ -2,7 +2,6 @@
 #ifndef PARTICLE_H
 #define PARTICLE_H
 
-#include <plog/Log.h>
 #include "SfmlUtil.h"
 
 struct Particle {

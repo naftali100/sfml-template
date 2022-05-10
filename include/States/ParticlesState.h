@@ -2,8 +2,6 @@
 #ifndef PARTICLES_STATE_H
 #define PARTICLES_STATE_H
 
-#include <plog/Log.h>
-
 #include "Config.h"
 #include "ParticleSystem.h"
 #include "SfmlUtil.h"
