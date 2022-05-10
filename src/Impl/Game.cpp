@@ -1,9 +1,5 @@
 #include "Game.h"
 
-#include <imgui-SFML.h>
-#include <imgui.h>
-#include <plog/Log.h>
-
 #include <SFML/Audio.hpp>
 #include <SFML/Graphics.hpp>
 #include <vector>

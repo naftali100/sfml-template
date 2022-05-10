@@ -1,8 +1,5 @@
 #include "StateManager.h"
 
-#include <imgui.h>
-#include <plog/Log.h>
-
 void HelpMarker(const char* desc)
 {
     ImGui::TextDisabled("what is this");
