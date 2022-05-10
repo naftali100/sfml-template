@@ -30,10 +30,6 @@
 #ifndef SFMLUTIL_H
 #define SFMLUTIL_H
 
-#include <SFML/Graphics.hpp>
-#include <exception>
-#include <utility>
-
 template <typename T>
 concept hasGlobal = requires(T t) {
     t.getGlobalBounds();
@@ -87,42 +83,6 @@ namespace sf {
 
     }  // namespace util
 }  // namespace sf
-
-template <typename T>
-concept PrintableVec = requires(T t) {
-    t.x;
-    t.y;
-};
-
-template <typename T>
-concept PrintableShape = requires(T t) {
-    t.getPosition();
-    t.getSize();
-    sf::util::getGlobalTopLeft(t);
-};
-
-template <typename T>
-concept Iterateble = requires(T t) {
-    std::begin(t);
-    std::end(t);
-};
-
-namespace plog {
-    template <typename T>
-    inline Record& operator<<(Record& record, const sf::Rect<T>& v);
-
-    template <PrintableVec V>
-    Record& operator<<(Record& record, const V& v);
-
-    template <PrintableShape S>
-    Record& operator<<(Record& record, const S& v);
-
-    template <Iterateble I>
-    Record& operator<<(Record& os, const I& i);
-
-    template <typename T1, typename T2>
-    Record& operator<<(Record& os, const std::pair<T1, T2>& p);
-}  // namespace plog
 
 #include "SfmlUtil.tpp"
 
