@@ -30,8 +30,6 @@
 #ifndef PLINTH_SFML_COLORS_HPP
 #define PLINTH_SFML_COLORS_HPP
 
-#include <SFML/Graphics/Color.hpp>
-
 namespace Colors {
 
 const sf::Color Transparent(0, 0, 0, 0);

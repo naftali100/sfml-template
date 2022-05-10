@@ -2,8 +2,6 @@
 #ifndef ANIMATION_H
 #define ANIMATION_H
 
-#include <SFML/Graphics.hpp>
-
 struct Frame {
     sf::IntRect rect;
     double duration;  // in seconds

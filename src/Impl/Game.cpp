@@ -8,7 +8,6 @@
 #include "Config.h"
 #include "Resources.h"
 #include "SfmlUtil.h"
-#include "StateManager.h"
 #include "States/MainMenu.h"
 
 Game::Game() : m_win(sf::VideoMode(WIN_SIZE_X, WIN_SIZE_Y), "World"), m_stateManager(m_win) {}

@@ -2,9 +2,6 @@
 #ifndef state_manager_h
 #define state_manager_h
 
-#include <map>
-#include <stack>
-
 #include "State.h"
 
 class StateManager {

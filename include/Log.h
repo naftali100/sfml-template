@@ -5,9 +5,7 @@
 // convenience file
 
 #include "SfmlUtil.h"
-
 #include <utility>
-
 // #define PLOG_OMIT_LOG_DEFINES - disable LOG* prefix
 
 template <typename T>
