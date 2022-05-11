@@ -1,25 +1,22 @@
 #include "Game.h"
 
-#include <SFML/Audio.hpp>
-#include <SFML/Graphics.hpp>
-#include <vector>
 
 #include "Colors.h"
 #include "Config.h"
-#include "Resources.h"
 #include "SfmlUtil.h"
 #include "States/MainMenu.h"
+#include "Resources.h"
 
 Game::Game() : m_win(sf::VideoMode(WIN_SIZE_X, WIN_SIZE_Y), "World"), m_stateManager(m_win) {}
 
 void Game::loadResources() {
-    Resources::loadTexture(Textures::Player, "textures/player.png");
-    Resources::loadTexture(Textures::FireAnimationSheet, "textures/fireSheet.png");
-    Resources::loadTexture(Textures::Run, "textures/run.png");
-    Resources::loadTexture(Textures::Map, "textures/map1.png");
-    Resources::loadFont(Fonts::Main, FONT_PATH);
-    Resources::loadFont(Fonts::Test, "fonts/ttf/KlokanTechNotoSans-Regular.ttf");
-    Resources::loadSoundBuffer(SoundEffect::Main, "music/background.ogg");
+    TextureHolder::load(Textures::Player, "textures/player.png");
+    TextureHolder::load(Textures::FireAnimationSheet, "textures/fireSheet.png");
+    TextureHolder::load(Textures::Run, "textures/run.png");
+    TextureHolder::load(Textures::Map, "textures/map1.png");
+    FontHolder::load(Fonts::Main, FONT_PATH);
+    FontHolder::load(Fonts::Test, "fonts/ttf/KlokanTechNotoSans-Regular.ttf");
+    SoundBufferHolder::load(SoundEffect::Main, "music/background.ogg");
 }
 
 void Game::initImGui() {

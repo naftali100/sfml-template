@@ -1,6 +1,6 @@
 
 template <typename Resource, typename Identifier>
-void ResourceHolder<Resource, Identifier>::load(Identifier id, const std::string& filename)
+void ResourceHolder<Resource, Identifier>::loadResource(Identifier id, const std::string& filename)
 {
 	// Create and load resource
 	std::unique_ptr<Resource> resource(new Resource());
@@ -13,7 +13,7 @@ void ResourceHolder<Resource, Identifier>::load(Identifier id, const std::string
 
 template <typename Resource, typename Identifier>
 template <typename Parameter>
-void ResourceHolder<Resource, Identifier>::load(Identifier id, const std::string& filename, const Parameter& secondParam)
+void ResourceHolder<Resource, Identifier>::loadResource(Identifier id, const std::string& filename, const Parameter& secondParam)
 {
 	// Create and load resource
 	std::unique_ptr<Resource> resource(new Resource());
@@ -25,7 +25,7 @@ void ResourceHolder<Resource, Identifier>::load(Identifier id, const std::string
 }
 
 template <typename Resource, typename Identifier>
-Resource& ResourceHolder<Resource, Identifier>::get(Identifier id)
+Resource& ResourceHolder<Resource, Identifier>::getResource(Identifier id)
 {
 	auto found = mResourceMap.find(id);
 	assert(found != mResourceMap.end());
@@ -34,7 +34,7 @@ Resource& ResourceHolder<Resource, Identifier>::get(Identifier id)
 }
 
 template <typename Resource, typename Identifier>
-const Resource& ResourceHolder<Resource, Identifier>::get(Identifier id) const
+const Resource& ResourceHolder<Resource, Identifier>::getResource(Identifier id) const
 {
 	auto found = mResourceMap.find(id);
 	assert(found != mResourceMap.end());

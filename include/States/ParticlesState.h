@@ -9,7 +9,7 @@
 #include "Resources.h"
 
 struct myParticle : public Particle {
-    sf::Sprite sprite{Resources::getTexture(Textures::Player)};
+    sf::Sprite sprite{TextureHolder::get(Textures::Player)};
     void init() override {
         sprite.scale(0.1, 0.1);
         sprite.setPosition(m_pos);

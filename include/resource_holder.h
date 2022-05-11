@@ -11,18 +11,32 @@
 template <typename Resource, typename Identifier>
 class ResourceHolder {
 public:
-    void load(Identifier id, const std::string& filename);
+    static void load(Identifier id, const std::string& filename){
+        Instance().loadResource(id, filename);
+    }
 
     template <typename Parameter>
-    void load(Identifier id, const std::string& filename, const Parameter& secondParam);
+    static void load(Identifier id, const std::string& filename, const Parameter& secondParam){
+        Instance().loadResource(id, filename, secondParam);
+    }
 
-    Resource& get(Identifier id);
-    const Resource& get(Identifier id) const;
+    static Resource& get(Identifier id){
+        return Instance().getResource(id);
+    }
 
     static ResourceHolder& Instance(){
         static ResourceHolder instance;
         return instance;
     }
+
+private:
+    Resource& getResource(Identifier id);
+    const Resource& getResource(Identifier id) const;
+
+    void loadResource(Identifier id, const std::string& filename);
+
+    template <typename Parameter>
+    void loadResource(Identifier id, const std::string& filename, const Parameter& secondParam);
 
 private:
     ResourceHolder() = default;

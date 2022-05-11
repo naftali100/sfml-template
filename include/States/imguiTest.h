@@ -2,9 +2,6 @@
 #ifndef IMGUI_TEST_H
 #define IMGUI_TEST_H
 
-#include <imgui-SFML.h>
-#include <imgui.h>
-
 #include "Log.h"
 #include "Resources.h"
 #include "State.h"
@@ -26,7 +23,7 @@ public:
         if (open) {
             if (ImGui::Begin("hello", &open)) {
                 ImGui::Text("hello");
-                ImGui::Image(Resources::getTexture(Textures::Player));
+                ImGui::Image(TextureHolder::get(Textures::Player));
             }
             // End should allways be called after begin
             ImGui::End();

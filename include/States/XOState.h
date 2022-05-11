@@ -2,12 +2,9 @@
 #ifndef OXSTATE_H
 #define OXSTATE_H
 
-#include <SFML/Graphics.hpp>
-#include <array>
-
 #include "Log.h"
-#include "Resources.h"
 #include "State.h"
+#include "Resources.h"
 
 enum peace
 {
@@ -54,7 +51,7 @@ public:
         win.draw(tile);
 
         sf::Text p;
-        p.setFont(Resources::getFont(Fonts::Main));
+        p.setFont(FontHolder::get(Fonts::Main));
         p.setString(peaceToChar(m_peace));
         p.setOrigin(sf::util::getGlobalCenter(p));
         p.setPosition(sf::util::getGlobalCenter(tile));

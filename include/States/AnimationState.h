@@ -36,7 +36,7 @@ public:
     }
 
 private:
-    mutable sf::Sprite m_sprite{Resources::getTexture(Textures::Run)};
+    mutable sf::Sprite m_sprite{TextureHolder::get(Textures::Run)};
     Animation animation{m_sprite};
 };
 

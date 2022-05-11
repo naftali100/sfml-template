@@ -2,7 +2,7 @@
 #ifndef TILEMAP_H
 #define TILEMAP_H
 
-#include <SFML/Graphics.hpp>
+#include "Resources.h"
 
 enum TileName
 {
@@ -59,7 +59,7 @@ public:
             // get the tile in the texture: go tileSize the amount from the counter to the end of "line" of tiles in the
             // texture
             auto rec = sf::IntRect(sf::Vector2i(m_tileSize.x * tileID, 0), (sf::Vector2i)m_tileSize);
-            sf::Sprite s{Resources::getTexture(m_textureID), rec};
+            sf::Sprite s{TextureHolder::get(m_textureID), rec};
             s.setPosition(drawPos);
             m_fullMap.draw(s);
 
