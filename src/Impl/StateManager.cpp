@@ -28,6 +28,12 @@ void StateManager::pushState(StatePtr ptr, bool pauseCurrent) {
     m_states.top()->init();
 }
 
+void StateManager::replaceState(StatePtr ptr){
+    m_states.pop();
+    m_states.push(std::move(ptr));
+    m_states.top()->init();
+}
+
 void StateManager::popState() {
     if (!m_states.empty())
         m_states.pop();

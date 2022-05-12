@@ -14,6 +14,7 @@ public:
     //     pushState(std::make_unique<T>(std::forward<Args>(args)...));
     // }
     void pushState(StatePtr, bool = false);
+    void replaceState(StatePtr);
     void popState();
 
     void handleEvent(const sf::Event&);
