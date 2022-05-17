@@ -32,6 +32,8 @@ WIP.
 - logging with plog, integrate sfml with plog
 - sfml utilities
 - imgui
+- easy testing
+- gui - WIP
 
 # todo
 
