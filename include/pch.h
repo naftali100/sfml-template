@@ -14,3 +14,4 @@
 #include <vector>
 #include <array>
 #include <functional>
+#include <memory>

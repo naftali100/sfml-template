@@ -1,7 +1,5 @@
 #pragma once
 
-#include <SFML/Graphics.hpp>
-#include <functional>
 
 #include "Colors.h"
 #include "boundText.h"

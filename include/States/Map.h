@@ -5,7 +5,6 @@
 #include "StateComponents/Camera.h"
 #include "Log.h"
 #include "Random.h"
-#include "Resources.h"
 #include "State.h"
 #include "TileMap.h"
 
