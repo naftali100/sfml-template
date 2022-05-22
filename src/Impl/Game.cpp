@@ -49,8 +49,7 @@ void Game::run() {
     sf::Clock clock;
     while (m_stateManager.isRunning()) {
         processEvents();
-        sf::Time deltaTime = clock.restart();
-        update(deltaTime);
+        update(clock.restart());
         showStatWin();
         draw();
     }
@@ -97,12 +96,16 @@ void Game::update(sf::Time deltaTime) {
 
 void Game::showStatWin() {
     static bool open = true;
-    if (open) {
-        if (ImGui::Begin("stat window", &open)) {
-            ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate,
-                        ImGui::GetIO().Framerate);
+    IF_PLOG(plog::verbose) {
+        if (open) {
+            if (ImGui::Begin("stat window", &open)) {
+                ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate,
+                            ImGui::GetIO().Framerate);
+                ImGui::Text("mouse position: %f, %f", sf::Mouse::getPosition().x, sf::Mouse::getPosition().y);
+                // add more useful debug info
+            }
+            ImGui::End();
         }
-        ImGui::End();
     }
 }
 
