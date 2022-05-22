@@ -21,22 +21,23 @@ public:
     virtual void handleEvent(const sf::Event&) override{};
     virtual void update(const sf::Time&) override {
         if (ImGui::Button("Map state")) {
-            m_stateManager.pushState(std::make_unique<MapState>(m_stateManager), m_pauseOnPush);
+            m_stateManager.pushState(std::make_unique<MapState>(m_stateManager));
         }
         if (ImGui::Button("XO state")) {
-            m_stateManager.pushState(std::make_unique<XOState>(m_stateManager), m_pauseOnPush);
+            m_stateManager.pushState(std::make_unique<XOState>(m_stateManager));
         }
 
         if (ImGui::Button("particles state")) {
-            m_stateManager.pushState(std::make_unique<ParticlesState>(m_stateManager), m_pauseOnPush);
+            m_stateManager.pushState(std::make_unique<ParticlesState>(m_stateManager));
         }
 
         if (ImGui::Button("Animation state")) {
-            m_stateManager.pushState(std::make_unique<AnimationState>(m_stateManager), m_pauseOnPush);
+            m_stateManager.pushState(std::make_unique<AnimationState>(m_stateManager));
         }
 
         if (ImGui::Button("ImGui test state")) {
-            m_stateManager.pushState(std::make_unique<ImGuiTest>(m_stateManager), m_pauseOnPush);
+            m_stateManager.pushState(std::make_unique<ImGuiTest>(m_stateManager));
+        }
         }
 
         if (ImGui::Button("show demo window")) {
