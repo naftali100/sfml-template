@@ -4,7 +4,7 @@
 #include "Colors.h"
 #include "Config.h"
 #include "SfmlUtil.h"
-#include "States/MainMenu.h"
+#include "ExampleStates/MainMenu.h"
 #include "Resources.h"
 
 Game::Game() : m_win(sf::VideoMode(WIN_SIZE_X, WIN_SIZE_Y), "World"), m_stateManager(m_win) {}
@@ -64,9 +64,6 @@ void Game::run() {
 void Game::processEvents() {
     sf::Event event;
     while (m_win.pollEvent(event)) {
-        ImGui::SFML::ProcessEvent(m_win, event);
-        m_stateManager.handleEvent(event);
-
         switch (event.type) {
             case sf::Event::Resized:
                 {  // update the view to the new size of the window
@@ -85,6 +82,9 @@ void Game::processEvents() {
                 //     m_stateManager.resume();
                 //     break;
         }
+
+        ImGui::SFML::ProcessEvent(m_win, event);
+        m_stateManager.handleEvent(event);
     }
 }
 
