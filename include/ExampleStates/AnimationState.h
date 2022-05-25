@@ -11,18 +11,18 @@
 class AnimationState : public State {
 public:
     AnimationState(StateManager& sm) : State(sm) {
-        m_sprite.scale(2, 2);
+        m_sprite.scale(0.5, 0.5);
         sf::Vector2u textureSize = m_sprite.getTexture()->getSize();
 
-        int textureRows = 8;
-        int textureCols = 8;
+        int textureRows = 3;
+        int textureCols = 4;
 
-        int FrameXSize = textureSize.x / textureRows;
-        int FrameYSize = textureSize.y / textureCols;
+        int FrameXSize = textureSize.x / textureCols;
+        int FrameYSize = textureSize.y / textureRows;
 
         for (int i = 0; i < textureRows; i++) {
             for (int j = 0; j < textureCols; j++) {
-                animation.addFrame({sf::IntRect(i * FrameXSize, j * FrameYSize, FrameXSize, FrameYSize), 0.1});
+                animation.addFrame({sf::IntRect(i * FrameXSize, j * FrameYSize, FrameXSize, FrameYSize), 0.3});
             }
         }
     }
@@ -36,7 +36,7 @@ public:
     }
 
 private:
-    mutable sf::Sprite m_sprite{TextureHolder::get(Textures::Run)};
+    sf::Sprite m_sprite{TextureHolder::get(Textures::Run)};
     Animation animation{m_sprite};
 };
 

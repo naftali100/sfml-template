@@ -43,7 +43,7 @@ public:
         auto tileSize = m_map.getTileSize();
         int layoutWidth = m_map.getLayoutWidth();
 
-        if (ImGui::Button("reset corrent ratio")) {
+        if (ImGui::Button("reset current ratio")) {
             m_camera.resetView();
             m_camera.fixRatio();
         }

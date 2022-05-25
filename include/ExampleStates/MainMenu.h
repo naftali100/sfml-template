@@ -6,13 +6,13 @@
 #include <imgui.h>
 
 #include "State.h"
-#include "States/AnimationState.h"
-#include "States/DemoState.h"
+#include "ExampleStates/AnimationState.h"
+#include "ExampleStates/DemoState.h"
 #include "Log.h"
-#include "States/Map.h"
-#include "States/ParticlesState.h"
-#include "States/XOState.h"
-#include "States/imguiTest.h"
+#include "ExampleStates/Map.h"
+#include "ExampleStates/ParticlesState.h"
+#include "ExampleStates/XOState.h"
+#include "ExampleStates/imguiTest.h"
 
 class MainMenu : public State {
 public:
@@ -37,7 +37,6 @@ public:
 
         if (ImGui::Button("ImGui test state")) {
             m_stateManager.pushState(std::make_unique<ImGuiTest>(m_stateManager));
-        }
         }
 
         if (ImGui::Button("show demo window")) {
