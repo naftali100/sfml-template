@@ -2,9 +2,6 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include <imgui.h>
-#include <SFML/Graphics/View.hpp>
-
 enum winResizeStrategy
 {
     LatterBox,  // change the viewport to math new window size
@@ -108,11 +105,11 @@ public:
             m_view.move(0, -cameraSpeed);
         }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
             m_view.move(cameraSpeed, 0);
         }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
             m_view.move(-cameraSpeed, 0);
         }
 
