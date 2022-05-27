@@ -53,7 +53,7 @@ public:
     }
 
     //////////////////////////////////
-    // GETERS
+    // GETTERS
     //////////////////////////////////
 
     winResizeStrategy getResizeStrategy() const {
@@ -68,7 +68,7 @@ public:
     }
 
     //////////////////////////////////////////////
-    // handle events, update, draw
+    /// handle events, update, draw
     //////////////////////////////////////////////
 
     virtual void handleEvent(const sf::Event& e) {
@@ -105,11 +105,11 @@ public:
             m_view.move(0, -cameraSpeed);
         }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
             m_view.move(cameraSpeed, 0);
         }
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
             m_view.move(-cameraSpeed, 0);
         }
 
@@ -120,6 +120,12 @@ public:
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::E)) {
             m_view.zoom(1 + zoomSpeed);
         }
+
+        ImGui::Separator();
+        static bool disableCameraGui = true;
+        ImGui::Checkbox("disable camera gui", &disableCameraGui);
+        if (disableCameraGui)
+            return;
 
         ImGui::Text("camera view size: %f, %f", m_view.getSize().x, m_view.getSize().y);
         float sizeX, sizeY;
@@ -139,15 +145,17 @@ public:
 
         ImGui::Separator();
 
-        static bool pinViewToWindowCorenr = true;
-        ImGui::Checkbox("pin view up-left corner to window's 0,0", &pinViewToWindowCorenr);
-        if (pinViewToWindowCorenr) {
+        static bool pinViewToWindowCorner = false;
+        ImGui::Checkbox("pin view up-left corner to window's 0,0", &pinViewToWindowCorner);
+        if (pinViewToWindowCorner) {
             auto size = m_view.getSize();
             sf::Vector2f halfSize{size.x / 2, size.y / 2};
             m_view.setCenter(halfSize);
         }
 
         ImGui::Text("win ratio: %f", m_windowRatio);
+
+        ImGui::Separator();
     }
 
     // set the view to window
@@ -156,8 +164,8 @@ public:
     }
 
     ////////////////////////////////////////
-    // UTILITES
-    // for varios operations on views
+    // UTILITIES
+    // for various operations on views
     ////////////////////////////////////////
 
     void zoomViewAt(sf::Vector2i pixel, sf::RenderTarget& window, float zoom) {
@@ -184,7 +192,7 @@ public:
 
     sf::View getLetterboxView(sf::View view) {
         // Compares the aspect ratio of the window to the aspect ratio of the view,
-        // and sets the view's viewport accordingly in order to archieve a letterbox effect.
+        // and sets the view's viewport accordingly in order to achieve a letterbox effect.
         // A new view (with a new viewport set) is returned.
 
         float windowRatio = m_windowRatio;
