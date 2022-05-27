@@ -71,7 +71,7 @@ public:
     /// handle events, update, draw
     //////////////////////////////////////////////
 
-    virtual void handleEvent(const sf::Event& e) {
+    void handleEvent(const sf::Event& e) {
         switch (e.type) {
             case sf::Event::Resized:
                 m_windowRatio = (float)e.size.width / (float)e.size.height;
@@ -95,7 +95,7 @@ public:
         }
     }
 
-    virtual void update(const sf::Time& dt) {
+    void update(const sf::Time& dt) {
         float cameraSpeed = 100 * dt.asSeconds();
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
             m_view.move(0, cameraSpeed);
@@ -159,7 +159,7 @@ public:
     }
 
     // set the view to window
-    virtual void draw(sf::RenderTarget& win) const {
+    void draw(sf::RenderTarget& win) const {
         win.setView(m_view);
     }
 
