@@ -9,7 +9,7 @@
 
 Game::Game() : m_win(sf::VideoMode(WIN_SIZE_X, WIN_SIZE_Y), "World"), m_stateManager(m_win) {}
 
-void Game::loadResources() {
+void Game::loadResources() const {
     TextureHolder::load(Textures::Player, "textures/player.png");
     TextureHolder::load(Textures::FireAnimationSheet, "textures/fireSheet.png");
     TextureHolder::load(Textures::Run, "textures/run.png");
@@ -81,6 +81,7 @@ void Game::processEvents() {
                 // case sf::Event::GainedFocus:
                 //     m_stateManager.resume();
                 //     break;
+            default: ;
         }
 
         ImGui::SFML::ProcessEvent(m_win, event);
@@ -94,7 +95,7 @@ void Game::update(sf::Time deltaTime) {
     m_stateManager.update(deltaTime);
 }
 
-void Game::showStatWin() {
+void Game::showStatWin() const {
     static bool open = true;
     IF_PLOG(plog::verbose) {
         if (open) {
