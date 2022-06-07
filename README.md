@@ -2,6 +2,8 @@
 
 cross platform sfml project template with a lot of stuff built in for easy and quick start.
 
+c++20 required 
+
 WIP.
 
 # how to use
