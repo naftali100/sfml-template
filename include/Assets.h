@@ -29,6 +29,7 @@ enum ID
     Player,
     FireAnimationSheet,
     Run,
+    Smoke,
     Map
 };  // add textures here
 }  // namespace Textures
