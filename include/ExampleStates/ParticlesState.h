@@ -8,50 +8,37 @@
 #include "State.h"
 #include "Resources.h"
 
-struct myParticle : public Particle {
-    sf::Sprite sprite{TextureHolder::get(Textures::Player)};
-    void init() override {
-        sprite.scale(0.1, 0.1);
-        sprite.setPosition(m_pos);
-    }
-
-    void update() override {
-        sprite.setPosition(m_pos);
-        sprite.setColor(sf::Color(255, 255, 255, opacity));
-    }
-
-    void draw(sf::RenderTarget& r) const override {
-        r.draw(sprite);
-    }
-};
 
 class ParticlesState : public State {
 public:
     using State::State;
     void init() override {
-        m_ps.setDissolve(true);
         m_ps.setDissolutionRate(1);
-        m_ps.setShape(Shape::SQUARE);
-        m_ps.setParticleSpeed(100.0f);
-        // m_ps.setGravity( 1.0f, 1.0f );
+        m_ps.setShape(Shape::CIRCLE);
+        m_ps.setParticleSpeed(50.0f);
+        m_ps.setGravity( 0.f, -1.0f );
+        m_ps.setPosition(500,500);
     };
 
     virtual void handleEvent(const sf::Event& e) override {
-        if (e.type == sf::Event::MouseMoved) {
-            m_ps.setPosition(e.mouseMove.x, e.mouseMove.y);
-        }
+        // if (e.type == sf::Event::MouseMoved) {
+        //     m_ps.setPosition(e.mouseMove.x, e.mouseMove.y);
+        // }
     }
-    virtual void update(const sf::Time&) override {
-        m_ps.fuel<myParticle>(100);
-        m_ps.update();
+    virtual void update(const sf::Time& dt) override {
+        static int deffer = 0;
+        deffer++;
+        if(deffer % 5 == 0){
+            m_ps.addParticles<BaseSpriteParticle>(3);
+        }
+        m_ps.update(dt);
     }
     virtual void draw(sf::RenderTarget& win) const override {
-        m_ps.render();
-        win.draw(m_ps.getSprite());
+        m_ps.draw(win);
     }
 
 private:
-    mutable ParticleSystem m_ps{WIN_SIZE_X, WIN_SIZE_Y};
+    ParticleSystem m_ps;
 };
 
 #endif

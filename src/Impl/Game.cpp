@@ -32,7 +32,7 @@ void Game::initImGui() {
     // set my style for ImGui
     ImGuiStyle& style = ImGui::GetStyle();
     style.WindowRounding = 12;
-    style.FrameRounding = 12;
+    style.FrameRounding = 8;
     style.ScrollbarRounding = 12;
     style.GrabRounding = 12;
 }

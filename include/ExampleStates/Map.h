@@ -18,8 +18,7 @@ public:
         m_map.setLayoutWidth(10);
         m_map.generateRandomMap();
 
-        m_camera.setView(m_map.getMapSize());
-        m_camera.setInitialView();
+        m_camera.setView(m_map.getMapSize()).setInitialView();
         m_camera.setWinRatio(m_stateManager.getWin().getSize());
         m_camera.setResizeStrategy(LatterBox);
     }

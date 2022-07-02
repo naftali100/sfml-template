@@ -1,8 +1,5 @@
 #include "StateManager.h"
 
-#include <SFML/Graphics.hpp>
-#include <exception>
-
 #include "ExampleStates/DemoState.h"
 #include "doctest/doctest.h"
 
