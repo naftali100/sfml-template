@@ -2,13 +2,17 @@
 #ifndef PARTICLE_SYSTEM_H
 #define PARTICLE_SYSTEM_H
 
-#include <SFML/System/Clock.hpp>
-#include <SFML/System/Vector2.hpp>
 #include "Particle.h"
 #include "Random.h"
 
-template<typename T>
-concept DerivedFromParticle = std::is_base_of<Particle, T>::value; 
+// constants:
+const float PARTICLE_SPEED = 20.f;
+const float MAX_ROTATE = 90.f;
+const float PI = 3.1416f;
+const int OPACITY = 255;
+
+template <typename T>
+concept DerivedFromParticle = std::is_base_of<Particle, T>::value;
 
 namespace Shape {
 enum
@@ -18,22 +22,43 @@ enum
 };
 }  // namespace Shape
 
-
 class ParticleSystem {
 public:
-    ParticleSystem(int width, int height);
-    ~ParticleSystem();
+    ParticleSystem() {
+        m_particleSpeed = PARTICLE_SPEED;
+        m_dissolutionRate = 0;
+        m_shape = Shape::CIRCLE;
+    }
 
-// TODO: support screen resize (using view?)
-// TODO: switch to vertexArray for better performance
-    template<DerivedFromParticle P>
-    void fuel(int particles);  // Adds new particles to m_particles
-    void update();             // Updates position, velocity and opacity of all particles
-    void render();             // Renders all particles onto m_image
+    ParticleSystem(const ParticleSystem& other);
+
+    // for coping all properties without the particles
+    ParticleSystem& operator=(const ParticleSystem& other) {
+        if (this == &other)
+            return *this;
+
+        m_dissolutionRate = other.m_dissolutionRate;
+        m_position = other.m_position;
+        m_gravity = other.m_gravity;
+        m_particleSpeed = other.m_particleSpeed;
+        m_dissolutionRate;
+        m_shape = other.m_shape;
+
+        return *this;
+    }
+
+    template <DerivedFromParticle P>
+    void addParticles(int particles);  // Adds new particles to m_particles
+    void addParticles(DerivedFromParticle auto particle, int particlesAmount);
+    void addParticles(std::unique_ptr<Particle> particle, int particlesAmount);
+    void update(const sf::Time&);        // Updates position, velocity and opacity of all particles
+    void draw(sf::RenderTarget&) const;  // Renders all particles onto m_image
 
     void setPosition(float x, float y) {
-        m_position.x = x;
-        m_position.y = y;
+        setPosition({x, y});
+    }
+    void setPosition(const sf::Vector2f& pos) {
+        m_position = pos;
     }
     void setGravity(float x, float y) {
         m_gravity.x = x;
@@ -42,10 +67,7 @@ public:
     void setParticleSpeed(float speed) {
         m_particleSpeed = speed;
     }
-    void setDissolve(bool enable) {
-        m_dissolve = enable;
-    }
-    void setDissolutionRate(unsigned char rate) {
+    void setDissolutionRate(float rate) {
         m_dissolutionRate = rate;
     }
     void setShape(unsigned char shape) {
@@ -56,57 +78,25 @@ public:
         return m_particles.size();
     }
     std::string getNumberOfParticlesString();
-    sf::Sprite& getSprite() {
-        return m_sprite;
-    }
 
 private:
     sf::Vector2f m_position;  // Particle origin (pixel co-ordinates)
     sf::Vector2f m_gravity;   // Affects particle velocities
-    sf::Clock m_clock;        // Used to scale particle motion
-    sf::Color m_transparent;  // sf::Color( 0, 0, 0, 0 )
-    sf::RenderTexture m_texture;
-    sf::Sprite m_sprite;    // Connected to m_image
-    float m_particleSpeed;  // Pixels per second (at most)
-    bool m_dissolve;        // Dissolution enabled?
-    unsigned char m_dissolutionRate;
+    float m_particleSpeed;    // Pixels per second (at most)
+    float m_dissolutionRate;
     unsigned char m_shape;
 
-    std::vector<Particle*> m_particles;
+    std::vector<ParticlePtr> m_particles;
 };
 
-template<DerivedFromParticle T>
-void ParticleSystem::fuel(int particles) {
-    float angle;
-    T* particle;
-    for (int i = 0; i < particles; i++) {
-        particle = new T();
-        particle->m_pos.x = m_position.x;
-        particle->m_pos.y = m_position.y;
+void ParticleSystem::addParticles(DerivedFromParticle auto particle, int particlesAmount) {
+    addParticles(std::make_unique<decltype(particle)>(particle), particlesAmount);
+}
 
-        switch (m_shape) {
-            case Shape::CIRCLE:
-                angle = Random::rnd(0.0f, 6.2832f);
-                particle->m_vel.x = Random::rnd(0.0f, cos(angle));
-                particle->m_vel.y = Random::rnd(0.0f, sin(angle));
-                break;
-            case Shape::SQUARE:
-                particle->m_vel.x = Random::rnd(-1.0f, 1.0f);
-                particle->m_vel.y = Random::rnd(-1.0f, 1.0f);
-                break;
-            default:
-                particle->m_vel.x = 0.5f;  // Easily detected
-                particle->m_vel.y = 0.5f;  // Easily detected
-        }
-
-        if (particle->m_vel.x == 0.0f && particle->m_vel.y == 0.0f) {
-            delete particle;
-            continue;
-        }
-        particle->opacity = 255;
-
-        particle->init();
-        m_particles.push_back(particle);
+template <DerivedFromParticle T>
+void ParticleSystem::addParticles(int particlesAmount) {
+    for (int i = 0; i < particlesAmount; i++) {
+        addParticles(std::make_unique<T>(), particlesAmount);
     }
 }
 
