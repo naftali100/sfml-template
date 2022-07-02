@@ -122,5 +122,22 @@ sf::Vector2f getGlobalBottomRight(const T& object) {
     return {bounds.left + bounds.width, bounds.top + bounds.height};
 }
 
+template <hasGlobal T>
+sf::RectangleShape debugDraw(const T& object) {
+    sf::RectangleShape bound;
+    bound.setSize({object.getGlobalBounds().width, object.getGlobalBounds().height});
+    bound.setPosition(object.getGlobalBounds().left, object.getGlobalBounds().top);
+    bound.setFillColor(sf::Color::Transparent);
+    bound.setOutlineColor(sf::Color::Red);
+    bound.setOutlineThickness(2);
+
+    return bound;
+}
+
+template <typename T>
+void setOriginToCenter(const T& object) {
+    object.setOrigin(getGlobalCenter(object));
+}
+
 }  // namespace util
 }  // namespace sf
