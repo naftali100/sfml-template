@@ -2,6 +2,9 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+// CONSTANTS:
+const int CAMERA_SPEED = 300;
+
 enum winResizeStrategy
 {
     LatterBox,  // change the viewport to math new window size
@@ -20,30 +23,38 @@ public:
     /////////////////////////////////////
 
     // save the current view as default fallback size
-    void setInitialView() {
+    Camera& setInitialView() {
         m_initialView = m_view;
+        return *this;
     }
-    void setView(const sf::View& view) {
+    Camera& setView(const sf::View& view) {
         m_view = view;
+        return *this;
     }
-    void setView(const sf::Vector2u& size) {
+    Camera& setView(const sf::Vector2u& size) {
         m_view = sf::View(sf::FloatRect(0.0f, 0.0f, (float)size.x, (float)size.y));
+        return *this;
     }
-    void setView(const float x, const float y) {
+    Camera& setView(const float x, const float y) {
         m_view = sf::View(sf::FloatRect(0.0f, 0.0f, x, y));
+        return *this;
     }
-    void setView(const sf::FloatRect& rect) {
+    Camera& setView(const sf::FloatRect& rect) {
         m_view = sf::View(rect);
+        return *this;
     }
 
-    void setWinRatio(const sf::Vector2u& winSize) {
+    Camera& setWinRatio(const sf::Vector2u& winSize) {
         m_windowRatio = (float)winSize.x / (float)winSize.y;
+        return *this;
     }
-    void setWinRatio(const float ratio) {
+    Camera& setWinRatio(const float ratio) {
         m_windowRatio = ratio;
+        return *this;
     }
-    void setResizeStrategy(const winResizeStrategy& s) {
+    Camera& setResizeStrategy(const winResizeStrategy& s) {
         m_resizeStrategy = s;
+        return *this;
     }
 
     // reset view to default - manually set by setInitialView
@@ -96,7 +107,7 @@ public:
     }
 
     void update(const sf::Time& dt) {
-        float cameraSpeed = 100 * dt.asSeconds();
+        float cameraSpeed = CAMERA_SPEED * dt.asSeconds();
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::W)) {
             m_view.move(0, cameraSpeed);
         }
@@ -192,7 +203,7 @@ public:
 
     sf::View getLetterboxView(sf::View view) {
         // Compares the aspect ratio of the window to the aspect ratio of the view,
-        // and sets the view's viewport accordingly in order to achieve a letterbox effect.
+        // and sets the view's viewport accordingly in order to archive a letterbox effect.
         // A new view (with a new viewport set) is returned.
 
         float windowRatio = m_windowRatio;
